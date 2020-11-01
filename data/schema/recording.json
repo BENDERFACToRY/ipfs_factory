@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "Information about a single recording and each of its tracks",
+    "type": "object",
+    "required": [
+        "title",
+        "tracks",
+        "stereo_mix"
+    ],
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Title of the recording",
+            "examples": ["S02E06 - Jam1"]
+        },
+        "recorded_date": {
+            "type": "string"
+        },
+        "twitch_url": {
+            "type": "string",
+            "pattern": "^https?:\/\/(www\\.)?twitch.tv\/"
+        },
+        "bpm": {
+            "type": "number",
+            "minimum": 10,
+            "maximum": 300
+        },
+        "torrent_url": {
+            "type": "string",
+            "description": "URL to a torrent for this recording"
+        },
+        "torrent": {
+            "type": "string",
+            "description": "Local path to the .torrent file for this recording"
+        },
+        "stereo_mix": {
+            "type": "string",
+            "description": "Local path to the stereo mix for this recording"
+        },
+        "tracks": {
+            "type": "array",
+            "items": {
+                "$ref": "#definitions/track_listing"
+            }
+        }
+    },
+    "definitions": {
+     
+        "track_listing": {
+            "type": "object",
+            "required": [
+                "flac"
+            ],
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "multipleOf": 1,
+                    "minimum": 1
+                },
+                "patch_notes": {
+                    "type": "string"
+                },
+                "flac": {
+                    "type": "string",
+                    "description": "Local path to the lossless FLAC recording, relative to $DATA_DIR"
+                },
+                "vorbis": {
+                    "type": "string",
+                    "description": "(optional) Local path to the lossy ogg vorbis version, relative to $DATA_DIR"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "(optional) Name of the track, something like 'kickdrum 1"
+                }
+            }
+        }
+    }
+}

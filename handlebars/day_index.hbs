@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BenderFactory Stems for {{title}}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        table {
+            min-width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #ccc;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        div#ipfs {
+            text-align: center;
+            padding: 10px;
+        }
+
+        div#ipfs .pre {
+            font-family: monospace;
+            padding: 5px;
+            margin: 5px;
+
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div style="width: 100%">
+        <strong style="text-align: center; display: block">
+            Terms of Service: <a href="{{tos}}">must read before downloading</a>
+        </strong>
+    </div>
+
+    <div id="ipfs" style="display: none">
+        If you have your own IPFS node, you can download this particular day by running:
+
+        <div id="download-command" class="pre">ipfs get hash</div>
+
+        Consider pinning this hash to help make it available for other IPFS users!
+    </div>
+
+    <div id="nav" style="display: none">
+        <a href="../">back to season 2 index</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>name</th>
+            <th>Preview</th>
+            <th>Download links</th>
+            <th>duration</th>
+            <th>format</th>
+
+        </tr>
+        {{#each files}}
+        <tr>
+            <td>{{this.filename}}</td>
+            <td>
+                <audio controls src="ogg/{{this.filename_url}}.ogg" preload="metadata"></audio>
+            </td>
+            <td>
+                [<a href="{{this.filename_url}}.flac" download>Flac</a> {{this.flac_size}}]
+                [<a href="ogg/{{this.filename_url}}.ogg" download>Ogg</a> {{this.ogg_size}}]
+            </td>
+            <td>{{this.duration}}</td>
+            <td>{{this.format}}</td>
+
+        </tr>
+        {{/each}}
+    </table>
+
+    <a href="{{torrent}}">Download original .torrent file</a>
+
+    <script>
+        if (window.location.pathname.substr(0, 6) === "/ipfs/") {
+            document.querySelector("div#ipfs #download-command").innerText = "ipfs get " + window.location.pathname;
+            document.querySelector("div#ipfs").style.display = "";
+        }
+
+        let l = "/{{title}}/";
+        if (window.location.pathname.substr(window.location.pathname.length - l.length) === l) {
+            document.querySelector("div#nav").style.display = "";
+        }
+
+    </script>
+</body>
+
+</html>

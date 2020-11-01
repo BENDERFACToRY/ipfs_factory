@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+
+    "properties": {
+        "title": {
+            "type": "string"
+        },
+        "recordings": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "description": "Name of a JSON file in the `data` directory thas has information about a recording"
+            }
+        }
+    }
+
+    
+
+}

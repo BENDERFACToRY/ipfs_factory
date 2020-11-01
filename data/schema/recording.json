@@ -4,6 +4,7 @@
     "type": "object",
     "required": [
         "title",
+        "data_folder",
         "tracks",
         "stereo_mix"
     ],
@@ -13,10 +14,16 @@
             "description": "Title of the recording",
             "examples": ["S02EXX - Jam Y"]
         },
+        "data_folder": {
+            "type": "string",
+            "description": "The folder (relative to global data-dir) that contains data for this recording.  All paths are relative to this"
+        },
         "tags": {
             "type": "array",
+            "description": "Tags for this recording.  Must not start with a #",
             "items": {
-                "type": "string"
+                "type": "string",
+                "pattern": "^[^#]"
             }
         },
         "recorded_date": {

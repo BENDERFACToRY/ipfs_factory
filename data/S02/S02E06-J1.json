@@ -3,96 +3,97 @@
     "title": "S02E06 - Jam1",
     "recorded_date": "2020/10/23",
     "twitch_url": "https://www.twitch.tv/videos/779372664",
-    "torrent": "S02E06-J1/Colin Benders - S02E06 - Jam 1 (FLAC).torrent",
-    "stereo_mix": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 17-201023_1912.flac",
+    "data_folder": "S02E06-J1",
+    "torrent": "Colin Benders - S02E06 - Jam 1 (FLAC).torrent",
+    "stereo_mix": "Colin Benders - S02E06 - Jam 1 - 17-201023_1912.flac",
     "bpm": 131,
-    "tags": ["techo"],
+    "tags": ["techno", "ambient", "kittens"],
     "tracks": [
         {
             "id": 1,
             "name": "Mic",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 01-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 01-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 01-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 01-201023_1912.ogg"
         },
         {
             "id": 2,
             "name": "Drums/kick",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 02-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 02-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 02-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 02-201023_1912.ogg"
         },
         {
             "id": 3,
             "name": "Drums/Snare",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 03-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 03-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 03-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 03-201023_1912.ogg"
         },
         {
             "id": 4,
             "name": "Drums/Symbol",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 04-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 04-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 04-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 04-201023_1912.ogg"
         },
         {
             "id": 5,
             "name": "Lead/1",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 05-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 05-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 05-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 05-201023_1912.ogg"
         },
         {
             "id": 6,
             "name": "Voice/1Plucky string",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 06-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 06-201023_1912.ogg",
+            "flac": "Colin Benders - S02E06 - Jam 1 - 06-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 06-201023_1912.ogg",
             "patch_notes": "If any tracks has patch notes, they could be included like this!"
         },
         {
             "id": 7,
             "name": "Voice/1",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 07-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 07-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 07-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 07-201023_1912.ogg"
         },
         {
             "id": 8,
             "name": "Arp/1",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 08-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 08-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 08-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 08-201023_1912.ogg"
         },
         {
             "id": 9,
             "name": "Reverb/1",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 09-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 09-201023_1912.ogg",
+            "flac": "Colin Benders - S02E06 - Jam 1 - 09-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 09-201023_1912.ogg",
             "patch_notes": "Wet reverb of the two main voices plus some arps"
         },
         {
             "id": 10,
             "name": "Reverb/2",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 10-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 10-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 10-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 10-201023_1912.ogg"
         },
         {
             "id": 11,
             "name": "Bus (???)",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 11-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 11-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 11-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 11-201023_1912.ogg"
         },
         {
             "id": 12,
             "name": "Bus (???)",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 12-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 12-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 12-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 12-201023_1912.ogg"
         },
         {
             "id": 13,
             "name": "Drums Bus (???)",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 13-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 13-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 13-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 13-201023_1912.ogg"
         },
         {
             "id": 14,
             "name": "???",
-            "flac": "S02E06-J1/Colin Benders - S02E06 - Jam 1 - 14-201023_1912.flac",
-            "vorbis": "S02E06-J1/ogg/Colin Benders - S02E06 - Jam 1 - 14-201023_1912.ogg"
+            "flac": "Colin Benders - S02E06 - Jam 1 - 14-201023_1912.flac",
+            "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 14-201023_1912.ogg"
         }
     ]
 }

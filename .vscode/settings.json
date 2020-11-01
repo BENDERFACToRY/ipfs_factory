@@ -4,5 +4,7 @@
             "fileMatch": ["data/data.json"],
             "url": "data/season_schema.json"
         }
-    ]
+    ],
+    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+    "rust-analyzer.procMacro.enable": true
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BenderFactory Stems for </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        div#tracklist {
+            display: flex;
+            flex-direction: column;
+        }
+        div#track {
+            display: flex;
+        }
+
+        div#track #id {
+            width: 100px;
+        }
+      
+    </style>
+</head>
+
+<body>
+
+    <div>
+        {{recording.title}} recorded on {{recording.recorded_date}}
+    </div>
+
+    <table id="tracklist">
+
+        {% for track in recording.tracks %}
+            <tr id="track">
+
+                <td id="id">
+                    track {{track.id}}: <br/> {{track.name}}
+                </td>
+                <td>
+                    <audio controls src="{{track.vorbis}}" preload="metadata"></audio>
+                </td>
+                <td>
+                    [<a href="{{track.flac}}">Flac</a> {{track.flac_size()}}]
+                    [<a href="{{track.vorbis}}">Ogg</a> {{track.ogg_size()}}]
+                </td>
+                <td>
+                    {{track.patch_notes()}}
+                </td>
+
+            </tr>
+        {% endfor %}
+
+    </div>
+
+ 
+</body>
+
+</html>

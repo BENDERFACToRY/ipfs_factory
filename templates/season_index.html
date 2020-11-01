@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        div#reclist {
+            display: flex;
+            flex-direction: column;
+        }
+
+        div#rec {
+            display: flex;
+            flex-direction: row;
+        }
+
+        div#rec>div {
+            margin: 5px;
+        }
+
+        .tag {
+            border-radius: 8px;
+            background-color: lightblue;
+            padding: 3px 8px 3px 8px;
+        }
+
+        .tag.filtered {
+            background-color: lightcoral;
+        }
+
+        .tag:before {
+            content: "#"
+        }
+    </style>
+
+    <script>
+        let tags_in_filter = [];
+
+        function tag_filter(ev) {
+            if (ev.cancelable) {
+                ev.preventDefault();
+            }
+            let had_ctrl = ev.ctrlKey;
+            let tag = ev.target.dataset.tag;
+
+            let new_filter = (!tags_in_filter.includes(tag));
+
+
+            if (had_ctrl) {
+                if (new_filter) {
+                    tags_in_filter.push(tag);
+                } else {
+                    tags_in_filter = tags_in_filter.filter((t) => t !== tag);
+                }
+            } else {
+                if (tags_in_filter.length === 1 && tags_in_filter[0] === tag) {
+                    tags_in_filter = [];
+
+                } else {
+                    tags_in_filter = [tag];
+                }
+            }
+
+
+            document.querySelectorAll("span.tag").forEach((el) => {
+                if (tags_in_filter.includes(el.dataset.tag)) {
+                    el.classList.add("filtered");
+                } else {
+                    el.classList.remove("filtered");
+                }
+            });
+
+            console.log(ev);
+            console.log(tags_in_filter);
+            do_filter(tags_in_filter);
+        }
+
+        function do_filter(tags_to_filter) {
+            document.querySelectorAll("#rec").forEach((rec_elem) => {
+                if (tags_to_filter.length === 0 || Array.from(rec_elem.querySelectorAll(".tag")).map((elem) => elem.dataset.tag).find((tag) => tags_in_filter.includes(tag)) !== undefined) {
+                    // this element must be displayed
+                    rec_elem.style.display = "";
+                } else {
+                    rec_elem.style.display = "none";
+                }
+            });
+
+        }
+    </script>
+</head>
+
+<body>
+    Season {{ season.title }}
+
+    <div id="filtercontrol">
+        Click to filter (contrl+click to select multiple):
+        {% for tag in tag_set %}
+        <span class="tag" data-tag="{{tag}}">{{tag}}</span>
+        {% endfor %}
+    </div>
+
+
+    
+    <table id="reclist"> <!-- <div id="reclist"> -->
+        {% for recording in season.recordings %}
+        <tr id="rec"><!-- <div id="rec"> -->
+            <td>
+                <a href="{{recording.data_folder}}">{{recording.title}}</a>
+            </td>
+            <td>
+                <audio controls src="{{recording.stereo_mix}}" preload="metadata"></audio>
+            </td>
+            <td>
+                <!-- technical details of the recording here-->
+                Recorded on {{recording.recorded_date}}. Total of {{recording.tracks.len()}} tracks.
+            </td>
+            <td>
+                {% for tag in recording.tags %}
+                <span class="tag" data-tag="{{tag}}">{{tag}}</span>
+                {% endfor %}
+            </td>
+        </tr> <!-- </div> -->
+        {% endfor %}
+
+    </table> <!-- </div> -->
+
+
+    <script>
+        document.querySelectorAll("#filtercontrol>.tag").forEach((elem) => {
+            elem.onclick = tag_filter;
+        });
+    </script>
+</body>
+
+</html>

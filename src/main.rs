@@ -8,6 +8,7 @@ use clap::{App, Arg};
 use handlebars::Handlebars;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use valico::json_schema;
 
 fn convert_to_vorbis(input: &Path, output: &Path) -> Result<(), anyhow::Error> {
     let mut ffmpeg = Command::new("ffmpeg")
@@ -289,16 +290,64 @@ fn process(root: &Path) -> Result<(), anyhow::Error> {
     Ok(())
 }
 
+fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow::Error> {
+    let file = File::open(json_path)?;
+    let json: Value = serde_json::from_reader(file)?;
+
+    if let Value::Object(map) = &json {
+        if let Some(Value::String(schema)) = map.get("$schema") {
+            if schema.starts_with("./") {
+                // local file, fine it relative to json_path
+                let schema_path = json_path.parent().unwrap().join(schema);
+                let schema_file = File::open(schema_path)?;
+                let schema_json = serde_json::from_reader(schema_file)?;
+
+                let mut scope = json_schema::Scope::new();
+                let schema = scope.compile_and_return(schema_json, false).unwrap();
+                let res = schema.validate(&json);
+                if res.is_valid() {
+                    return Ok(json);
+                } else {
+                    bail!("JSON not valid, schema validation failed: {:?}", res)
+                }
+            }
+        }
+    }
+
+    // no schema found, just return it unvalidated
+    return Ok(json);
+}
+
 fn main() -> Result<(), anyhow::Error> {
     let matches = App::new("cb_processor")
         .version("0.0.1")
         .arg(
-            Arg::with_name("dir")
+            Arg::with_name("input")
+            .short("i")
+            .long("input")
+            .takes_value(true)
+            .required(true)
+            .help("Path to season.json")
+        )
+        .arg(
+            Arg::with_name("data-dir")
+                .short("d")
+                .long("data")
                 .takes_value(true)
                 .required(true)
-                .multiple(true)
+                .help("Path to data directory")
+                .long_help("Path to data directory\n\nThis is the directory containing the files references in the recordings json file")
         )
         .get_matches();
+
+    let season_json_path = matches.value_of("input").expect("Missing --input argument");
+    let season_json_path = Path::new(season_json_path);
+
+    if !season_json_path.exists() {
+        bail!("Input file {} does not exist", season_json_path.display());
+    }
+
+    let season_json = get_validated_json(season_json_path)?;
 
     for root in matches.values_of("dir").unwrap() {
         let root = Path::new(root);
@@ -306,5 +355,4 @@ fn main() -> Result<(), anyhow::Error> {
     }
 
     Ok(())
-
 }

@@ -11,10 +11,18 @@
         "title": {
             "type": "string",
             "description": "Title of the recording",
-            "examples": ["S02E06 - Jam1"]
+            "examples": ["S02EXX - Jam Y"]
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         },
         "recorded_date": {
-            "type": "string"
+            "type": "string",
+            "description": "Date the track was recorded, in YYYY/MM/DD format",
+            "pattern": "^\\d\\d\\d\\d\/[01]\\d/[0123]\\d"
         },
         "twitch_url": {
             "type": "string",

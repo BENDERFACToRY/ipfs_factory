@@ -2,6 +2,8 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "type": "object",
 
+    "required": ["title", "recordings"],
+
     "properties": {
         "title": {
             "type": "string"
@@ -10,7 +12,8 @@
             "type": "array",
             "items": {
                 "type": "string",
-                "description": "Name of a JSON file in the `data` directory thas has information about a recording"
+                "description": "Name of a JSON file in the `data` directory thas has information about a recording",
+                "minLength": 1
             }
         }
     }

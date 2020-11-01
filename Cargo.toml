@@ -12,3 +12,4 @@ handlebars = "3"
 anyhow = "1"
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
+valico = "3.4.0"

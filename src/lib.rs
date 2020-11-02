@@ -98,6 +98,7 @@ pub struct MediaInfo {
 }
 
 impl MediaInfo {
+    /// Get technical info about a piece of media
     pub fn new<P: AsRef<Path>>(path: P) -> Result<MediaInfo, anyhow::Error> {
         let path = path.as_ref();
 
@@ -198,7 +199,7 @@ pub fn write_season_index(season: &Season, output_root: &Path, data_dir: &Path) 
     Ok(())
 }
 
-pub fn write_all_recording_index(season: &Season, output_root: &Path, data_dir: &Path) -> Result<(), anyhow::Error> {
+pub fn write_all_recording_index(season: &Season, output_root: &Path, _data_dir: &Path) -> Result<(), anyhow::Error> {
     for recording in &season.recordings {
         let context = RecordingIndexTemplate { season, recording };
 
@@ -331,7 +332,7 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
         // each recording specifies their own local data folder relative to the global data_root
         let data_dir = data_dir.join(recording.data_folder);
 
-        let stereo_mix = data_dir.join(&recording.stereo_mix);
+        let stereo_mix = data_dir.join(&recording.stereo_mix.vorbis);
         if !stereo_mix.exists() {
             println!(
                 " {}: Stereo mix file doesn't exist {}",

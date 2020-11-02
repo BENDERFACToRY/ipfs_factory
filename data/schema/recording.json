@@ -49,8 +49,7 @@
             "description": "Local path to the .torrent file for this recording"
         },
         "stereo_mix": {
-            "type": "string",
-            "description": "Local path to the stereo mix for this recording"
+           "$ref": "#definitions/track_listing"
         },
         "tracks": {
             "type": "array",
@@ -64,7 +63,8 @@
         "track_listing": {
             "type": "object",
             "required": [
-                "flac"
+                "flac",
+                "name"
             ],
             "properties": {
                 "id": {

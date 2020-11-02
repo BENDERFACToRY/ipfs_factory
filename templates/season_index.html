@@ -4,6 +4,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
+        div#container {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background-color: aliceblue;
+        }
+
+        #filtercontrol {
+            border-bottom: 2px solid darkblue;
+            padding-bottom: 1em;
+        }
+
+        table#reclist {
+            width: 100%;
+        }
+
+        table#reclist tr td {
+            border-bottom: 1px dotted darkblue;
+        }
+
         div#reclist {
             display: flex;
             flex-direction: column;
@@ -90,39 +111,58 @@
 </head>
 
 <body>
-    Season {{ season.title }}
 
-    <div id="filtercontrol">
-        Click to filter (contrl+click to select multiple):
-        {% for tag in tag_set %}
-        <span class="tag" data-tag="{{tag}}">{{tag}}</span>
-        {% endfor %}
+    <div id="container">
+
+        <h2>Modular Mayhem -- {{ season.title }}</h2>
+
+        <p>
+            On this page you'll find all of the recordings and stems for {{ season.title }} of Modular Mayhem!
+            You can preview the stereo mix, or explore and download the individual stems!
+        </p>
+
+        <div id="filtercontrol">
+            Click to filter (contrl+click to select multiple):
+            {% for tag in tag_set %}
+            <span class="tag" data-tag="{{tag}}">{{tag}}</span>
+            {% endfor %}
+        </div>
+
+
+
+        <table id="reclist">
+            <!-- <div id="reclist"> -->
+            {% for recording in season.recordings %}
+            <tr id="rec">
+                <!-- <div id="rec"> -->
+                <td>
+                    <a href="{{recording.data_folder}}">{{recording.title}}</a> ({{recording.recorded_date}})
+                </td>
+                <td>
+                    <audio controls src="{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}" preload="metadata"></audio>
+                </td>
+                <td>
+                    <!-- technical details of the recording here-->
+                    {{recording.tracks.len()}} tracks
+                </td>
+                <td>
+                    {{recording.duration()}}
+                </td>
+                <td>
+                    {{recording.format_info()}}
+                </td>
+                <td>
+                    {% for tag in recording.tags %}
+                    <span class="tag" data-tag="{{tag}}">{{tag}}</span>
+                    {% endfor %}
+                </td>
+            </tr> <!-- </div> -->
+            {% endfor %}
+
+        </table> <!-- </div> -->
+
+
     </div>
-
-
-    
-    <table id="reclist"> <!-- <div id="reclist"> -->
-        {% for recording in season.recordings %}
-        <tr id="rec"><!-- <div id="rec"> -->
-            <td>
-                <a href="{{recording.data_folder}}">{{recording.title}}</a>
-            </td>
-            <td>
-                <audio controls src="{{recording.data_folder}}/{{recording.stereo_mix}}" preload="metadata"></audio>
-            </td>
-            <td>
-                <!-- technical details of the recording here-->
-                Recorded on {{recording.recorded_date}}. Total of {{recording.tracks.len()}} tracks.
-            </td>
-            <td>
-                {% for tag in recording.tags %}
-                <span class="tag" data-tag="{{tag}}">{{tag}}</span>
-                {% endfor %}
-            </td>
-        </tr> <!-- </div> -->
-        {% endfor %}
-
-    </table> <!-- </div> -->
 
 
     <script>

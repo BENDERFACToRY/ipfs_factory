@@ -3,12 +3,33 @@
 
 <head>
     <title>BenderFactory Stems for </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
+        table#tracklist {
+            width: 100%;
+        }
+
+        table#tracklist tr#track td {
+            border-bottom: 1px dotted darkblue;
+        }
+
+        div#intro {
+            border-bottom: 2px solid darkblue;
+        }
+
+        div#container {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background-color: aliceblue;
+        }
+
         div#tracklist {
             display: flex;
             flex-direction: column;
         }
+
         div#track {
             display: flex;
         }
@@ -16,23 +37,50 @@
         div#track #id {
             width: 100px;
         }
-      
     </style>
 </head>
 
 <body>
+    <div id="container">
 
-    <div>
-        {{recording.title}} recorded on {{recording.recorded_date}}
-    </div>
 
-    <table id="tracklist">
+        <h2>
+            {{recording.title}}
+        </h2>
 
-        {% for track in recording.tracks %}
+        <div id="intro">
+            <p>
+                recorded on {{recording.recorded_date}}
+            </p>
+            <p>
+                {{recording.duration()}} -- {{recording.format_info()}}
+            </p>
+        </div>
+
+
+        <table id="tracklist">
+
+            <tr id="track">
+                <td>
+                    Stereo mix
+                </td>
+                <td>
+                    <audio controls src="{{recording.stereo_mix.vorbis}}" preload="metadata"></audio>
+                </td>
+                <td>
+                    [<a href="{{recording.stereo_mix.flac}}">Flac</a> {{recording.stereo_mix.flac_size()}}]
+                    [<a href="{{recording.stereo_mix.vorbis}}">Ogg</a> {{recording.stereo_mix.ogg_size()}}]
+                </td>
+                <td>
+                    This is the stereo mix, and is basicaly what you would have heard during the live stream
+                </td>
+            </tr>
+
+            {% for track in recording.tracks %}
             <tr id="track">
 
                 <td id="id">
-                    track {{track.id}}: <br/> {{track.name}}
+                    track {{track.id}}: <br /> {{track.name}}
                 </td>
                 <td>
                     <audio controls src="{{track.vorbis}}" preload="metadata"></audio>
@@ -46,11 +94,12 @@
                 </td>
 
             </tr>
-        {% endfor %}
+            {% endfor %}
+        </table>
 
     </div>
 
- 
+
 </body>
 
 </html>

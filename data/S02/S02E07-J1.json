@@ -4,9 +4,18 @@
     "recorded_date": "2020/10/26",
     "data_folder": "S02E07-J1",
     "torrent": "Colin Benders - S02E07 - Jam 1 (FLAC).torrent",
-    "stereo_mix": "ogg/Colin Benders - S02E07 - Jam 1 - 17-201026_1855.ogg",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "Colin Benders - S02E07 - Jam 1 - 17-201026_1855.flac",
+        "vorbis": "ogg/Colin Benders - S02E07 - Jam 1 - 17-201026_1855.ogg"
+    },
     "bpm": 131,
-    "tags": ["techno", "floaty", "placeholder"],
+    "tags": [
+        "techno",
+        "floaty",
+        "placeholder"
+    ],
     "tracks": [
         {
             "id": 1,
@@ -50,7 +59,6 @@
             "flac": "Colin Benders - S02E07 - Jam 1 - 07-201026_1855.flac",
             "vorbis": "ogg/Colin Benders - S02E07 - Jam 1 - 07-201026_1855.ogg"
         },
-   
         {
             "id": 9,
             "name": "Reverb/1",

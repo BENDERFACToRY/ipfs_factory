@@ -2,6 +2,8 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
+use crate::MediaInfo;
+
 #[derive(Deserialize, Debug)]
 /// This is the raw JSON struct
 pub(crate) struct SeasonInner {
@@ -49,7 +51,7 @@ pub(crate) struct RecordingInner {
 
     pub title: String,
     pub data_folder: String,
-    pub stereo_mix: String,
+    pub stereo_mix: TrackInner,
     pub recorded_date: String,
     pub torrent: String,
     pub tracks: Vec<TrackInner>,
@@ -60,7 +62,7 @@ pub(crate) struct RecordingInner {
 pub struct Recording {
     pub title: String,
     pub data_folder: String,
-    pub stereo_mix: String,
+    pub stereo_mix: Track,
     pub recorded_date: String,
     pub torrent: String,
     pub tracks: Vec<Track>,
@@ -82,19 +84,41 @@ impl Recording {
         let tracks = inner
             .tracks
             .into_iter()
-            .map(|tr| Track::from_inner(tr, &ondisk_root))
+            .map(|tr| Track::from_inner(tr, &ondisk_root).unwrap())
             .collect();
 
         Ok(Recording {
             title: inner.title,
             data_folder: inner.data_folder,
-            stereo_mix: inner.stereo_mix,
+            stereo_mix: Track::from_inner(inner.stereo_mix, &ondisk_root)?,
             recorded_date: inner.recorded_date,
             torrent: inner.torrent,
             tracks,
             tags: inner.tags,
             ondisk_root: ondisk_root.to_owned(),
         })
+    }
+    pub fn format_info(&self) -> String {
+        let sample_rate: f32 = self.tracks[0].media_info.sample_rate.parse().unwrap();
+
+        format!(
+            "{}ch {:.1}kHz {}bit",
+            self.tracks[0].media_info.channels,
+            sample_rate / 1000.0,
+            self.tracks[0].media_info.bit_depth
+        )
+    }
+
+    pub fn duration(&self) -> String {
+        let sec: f32 = self.tracks[0].media_info.duration.parse().unwrap();
+        let sec = sec.floor() as u64;
+        if sec <= 59 {
+            format!("{}s", sec)
+        } else {
+            let min = (sec as f32 / 60.0).floor() as u64;
+            let sec = sec - (min * 60);
+            format!("{}m {}s", min, sec)
+        }
     }
 }
 
@@ -115,19 +139,24 @@ pub struct Track {
     pub vorbis: String,
     pub patch_notes: Option<String>,
 
+    /// Folder on the current machine can this track be found
     ondisk_root: PathBuf,
+
+    /// Technical info about this track
+    media_info: MediaInfo,
 }
 
 impl Track {
-    pub(crate) fn from_inner(inner: TrackInner, ondisk_root: &Path) -> Self {
-        Track {
+    pub(crate) fn from_inner(inner: TrackInner, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
+        Ok(Track {
+            media_info: MediaInfo::new(ondisk_root.join(&inner.flac))?,
             id: inner.id,
             name: inner.name,
             flac: inner.flac,
             vorbis: inner.vorbis,
             patch_notes: inner.patch_notes,
             ondisk_root: ondisk_root.to_owned(),
-        }
+        })
     }
 
     pub fn flac_size(&self) -> String {

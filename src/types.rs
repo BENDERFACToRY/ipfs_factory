@@ -1,4 +1,3 @@
-
 use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
@@ -12,8 +11,6 @@ pub(crate) struct SeasonInner {
     pub recordings: Vec<String>,
 }
 
-
-
 pub struct Season {
     pub title: String,
     pub recordings: Vec<Recording>,
@@ -23,7 +20,6 @@ impl Season {
     pub fn load<P: AsRef<Path>>(json: P, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
         let json = json.as_ref();
         let json_root = json.parent().unwrap();
-
 
         let inner = crate::get_validated_json(json)?;
         let inner: SeasonInner = serde_json::from_value(inner)?;
@@ -39,17 +35,12 @@ impl Season {
             recordings.push(recording);
         }
 
-        
         Ok(Season {
             title: inner.title,
-            recordings
+            recordings,
         })
-
-        
     }
 }
-
-
 
 #[derive(Deserialize, Debug)]
 pub(crate) struct RecordingInner {
@@ -64,7 +55,6 @@ pub(crate) struct RecordingInner {
     pub tracks: Vec<TrackInner>,
     pub tags: Vec<String>,
 }
-
 
 #[derive(Debug)]
 pub struct Recording {
@@ -81,21 +71,19 @@ pub struct Recording {
 impl Recording {
     /// Load info about a recording, given a path to its json file
     pub fn load<P: AsRef<Path>>(json: P, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
-
-
         let json = json.as_ref();
         let json_root = json.parent().unwrap();
-
 
         let inner = crate::get_validated_json(json)?;
         let inner: RecordingInner = serde_json::from_value(inner)?;
 
         let ondisk_root = ondisk_root.join(&inner.data_folder);
 
-        
-        let tracks = inner.tracks.into_iter().map(|tr| {
-            Track::from_inner(tr, &ondisk_root)
-        }).collect();
+        let tracks = inner
+            .tracks
+            .into_iter()
+            .map(|tr| Track::from_inner(tr, &ondisk_root))
+            .collect();
 
         Ok(Recording {
             title: inner.title,
@@ -107,11 +95,8 @@ impl Recording {
             tags: inner.tags,
             ondisk_root: ondisk_root.to_owned(),
         })
-
-        
     }
 }
-
 
 #[derive(Deserialize, Debug)]
 pub(crate) struct TrackInner {
@@ -148,7 +133,6 @@ impl Track {
     pub fn flac_size(&self) -> String {
         if let Ok(md) = std::fs::metadata(self.ondisk_root.join(&self.flac)) {
             format!("{}MB", md.len() / 1024 / 1024)
-
         } else {
             format!("unknown")
         }
@@ -157,7 +141,6 @@ impl Track {
     pub fn ogg_size(&self) -> String {
         if let Ok(md) = std::fs::metadata(self.ondisk_root.join(&self.vorbis)) {
             format!("{}MB", md.len() / 1024 / 1024)
-
         } else {
             format!("unknown")
         }
@@ -171,4 +154,3 @@ impl Track {
         }
     }
 }
-

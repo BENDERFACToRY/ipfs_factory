@@ -1,9 +1,8 @@
 use std::path::Path;
 
 use anyhow::bail;
-use cb_processor::{types::{Season}, validate_and_print};
+use cb_processor::{types::Season, validate_and_print};
 use clap::{App, Arg};
-
 
 fn main() -> Result<(), anyhow::Error> {
     let matches = App::new("cb_processor")
@@ -55,12 +54,10 @@ fn main() -> Result<(), anyhow::Error> {
     let output_root = Path::new(matches.value_of("output").expect("Missing --output argument"));
 
     let season = Season::load(season_json_path, data_dir_path)?;
-    
+
     cb_processor::write_season_index(&season, output_root, data_dir_path)?;
 
     cb_processor::write_all_recording_index(&season, output_root, data_dir_path)?;
-    
-
 
     Ok(())
 }

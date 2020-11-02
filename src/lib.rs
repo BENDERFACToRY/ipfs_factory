@@ -1,13 +1,19 @@
-use std::{fs::File, collections::HashSet, fs::read_dir, path::{Path, PathBuf}, process::{Command, Stdio}, time::Duration};
 use std::io::Write;
+use std::{
+    collections::HashSet,
+    fs::read_dir,
+    fs::File,
+    path::{Path, PathBuf},
+    process::{Command, Stdio},
+    time::Duration,
+};
 
 use anyhow::bail;
 use colored::Colorize;
+use serde::Deserialize;
 use serde_json::Value;
 use types::{Recording, RecordingInner, Season};
 use valico::json_schema;
-use serde::{Deserialize};
-
 
 pub mod types;
 
@@ -39,8 +45,6 @@ pub fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow:
     return Ok(json);
 }
 
-
-
 pub fn convert_to_vorbis(input: &Path, output: &Path) -> Result<(), anyhow::Error> {
     let mut ffmpeg = Command::new("ffmpeg")
         .arg("-i")
@@ -56,8 +60,6 @@ pub fn convert_to_vorbis(input: &Path, output: &Path) -> Result<(), anyhow::Erro
         bail!("ffmpeg returned {:?}", exit_status)
     }
 }
-
-
 
 #[derive(Debug)]
 struct AudioFile {
@@ -134,7 +136,6 @@ impl MediaInfo {
     }
 }
 
-
 use askama::Template;
 
 #[derive(Template)]
@@ -150,7 +151,6 @@ pub struct RecordingIndexTemplate<'a> {
     season: &'a Season,
     recording: &'a Recording,
 }
-
 
 // impl From<&AudioFile> for AudioFileHB {
 //     fn from(af: &AudioFile) -> Self {
@@ -177,7 +177,6 @@ pub struct RecordingIndexTemplate<'a> {
 // handlebars_helper!(filename: |v: u32| f.filename());
 
 pub fn write_season_index(season: &Season, output_root: &Path, data_dir: &Path) -> Result<(), anyhow::Error> {
-    
     let mut tag_set = HashSet::new();
     for rec in &season.recordings {
         for tag in &rec.tags {
@@ -186,18 +185,14 @@ pub fn write_season_index(season: &Season, output_root: &Path, data_dir: &Path) 
         // tag_set.extend(rec.tags.as_ref());
     }
 
-    let context = SeasonIndexTemplate {
-        season,
-        tag_set
-    };
-    
+    let context = SeasonIndexTemplate { season, tag_set };
+
     let f = output_root.join("index.html");
     let mut output = File::create(&f)?;
 
-
     let rendered: String = context.render()?;
     output.write_all(rendered.as_bytes())?;
-    
+
     println!("Write season index to {}", f.display());
 
     Ok(())
@@ -205,11 +200,7 @@ pub fn write_season_index(season: &Season, output_root: &Path, data_dir: &Path) 
 
 pub fn write_all_recording_index(season: &Season, output_root: &Path, data_dir: &Path) -> Result<(), anyhow::Error> {
     for recording in &season.recordings {
-
-        let context = RecordingIndexTemplate {
-            season,
-            recording
-        };
+        let context = RecordingIndexTemplate { season, recording };
 
         let f = output_root.join(&recording.data_folder).join("index.html");
         let mut output = File::create(&f)?;
@@ -222,7 +213,6 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path, data_dir: 
 
     Ok(())
 }
-
 
 fn process(root: &Path) -> Result<(), anyhow::Error> {
     if !root.exists() {
@@ -248,10 +238,7 @@ fn process(root: &Path) -> Result<(), anyhow::Error> {
                 .join(file_path.file_name().unwrap())
                 .with_extension("ogg");
             if ogg_path.exists() {
-                println!(
-                    "  {} already exists, skipping conversion",
-                    ogg_path.display()
-                );
+                println!("  {} already exists, skipping conversion", ogg_path.display());
             } else {
                 println!("  {} converting to ogg....", ogg_path.display());
                 convert_to_vorbis(&file_path, &ogg_path)?;
@@ -302,17 +289,8 @@ fn process(root: &Path) -> Result<(), anyhow::Error> {
     //     torrent.file_name().unwrap().to_string_lossy().to_string(),
     // )?;
 
-    let season_tos = tos
-        .parent()
-        .unwrap()
-        .parent()
-        .unwrap()
-        .join(tos.file_name().unwrap());
-    println!(
-        "Copying ToS from {} to {}",
-        tos.display(),
-        season_tos.display()
-    );
+    let season_tos = tos.parent().unwrap().parent().unwrap().join(tos.file_name().unwrap());
+    println!("Copying ToS from {} to {}", tos.display(), season_tos.display());
     std::fs::copy(tos, &season_tos)?;
 
     // write_season_index(
@@ -326,7 +304,6 @@ fn process(root: &Path) -> Result<(), anyhow::Error> {
 
     Ok(())
 }
-
 
 /// Returns the number of errors found
 pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<usize> {
@@ -346,7 +323,6 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
 
     // println!("{:#?}", season);
 
-
     for recording in season.recordings {
         println!("\n  Reading recording {}...", recording.yellow());
         let recording = get_validated_json(&json_root.join(recording))?;
@@ -357,7 +333,11 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
 
         let stereo_mix = data_dir.join(&recording.stereo_mix);
         if !stereo_mix.exists() {
-            println!(" {}: Stereo mix file doesn't exist {}", "ERROR".red(), format!("{}", stereo_mix.display()).yellow());
+            println!(
+                " {}: Stereo mix file doesn't exist {}",
+                "ERROR".red(),
+                format!("{}", stereo_mix.display()).yellow()
+            );
             errors += 1;
         } else {
             println!("  {} Stereo mix", "OK".green());
@@ -365,11 +345,14 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
 
         let torrent_file = data_dir.join(&recording.torrent);
         if !torrent_file.exists() {
-            println!(" {}: torrent file doesn't exist {}", "ERROR".red(), format!("{}", stereo_mix.display()).yellow());
+            println!(
+                " {}: torrent file doesn't exist {}",
+                "ERROR".red(),
+                format!("{}", stereo_mix.display()).yellow()
+            );
             errors += 1;
         } else {
             println!("  {} torrent file", "OK".green());
-
         }
 
         println!("  Tracks for {}:", recording.title.cyan());
@@ -380,15 +363,27 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
             println!("    Checking track {}", format!("{}", track.id).cyan());
             let flac_path = data_dir.join(&track.flac);
             if !flac_path.exists() {
-                println!("      {}: Flac file for `{}` track {} does not exist ({})", "ERROR".red(), recording.title, track.id, flac_path.display());
+                println!(
+                    "      {}: Flac file for `{}` track {} does not exist ({})",
+                    "ERROR".red(),
+                    recording.title,
+                    track.id,
+                    flac_path.display()
+                );
                 errors += 1;
             } else {
-              println!("      {} Flac orginal", "OK".green());
+                println!("      {} Flac orginal", "OK".green());
             }
 
             let ogg_path = data_dir.join(&track.vorbis);
             if !ogg_path.exists() {
-                println!("      {}: OGG Vorbis file for `{}` track {} does not exist ({})", "ERROR".red(), recording.title, track.id, ogg_path.display());
+                println!(
+                    "      {}: OGG Vorbis file for `{}` track {} does not exist ({})",
+                    "ERROR".red(),
+                    recording.title,
+                    track.id,
+                    ogg_path.display()
+                );
                 errors += 1;
             } else {
                 println!("      {} Ogg vorbis", "OK".green());

@@ -2,6 +2,7 @@
     "$schema": "./schema/season.json",
     "title": "Season 2",
     "recordings": [
+        "S02/S02E03-J1T2.json",
         "S02/S02E06-J1.json",
         "S02/S02E07-J1.json"
     ]

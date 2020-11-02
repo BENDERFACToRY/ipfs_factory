@@ -1,0 +1,19 @@
+
+div#container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    background-color: aliceblue;
+}
+
+div#ipfs {
+    text-align: center;
+    padding: 10px;
+}
+
+div#ipfs .pre {
+    font-family: monospace;
+    padding: 5px;
+    margin: 5px;
+}

@@ -3,15 +3,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="style.css" />
     <style>
-        div#container {
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
-            background-color: aliceblue;
-        }
-
         #filtercontrol {
             border-bottom: 2px solid darkblue;
             padding-bottom: 1em;
@@ -139,7 +132,8 @@
                     <a href="{{recording.data_folder}}">{{recording.title}}</a> ({{recording.recorded_date}})
                 </td>
                 <td>
-                    <audio controls src="{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}" preload="metadata"></audio>
+                    <audio controls src="{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}"
+                        preload="metadata"></audio>
                 </td>
                 <td>
                     <!-- technical details of the recording here-->
@@ -161,6 +155,19 @@
 
         </table> <!-- </div> -->
 
+        <div id="ipfs" style="display: none">
+            If you have your own IPFS node, you can download this entire season by running:
+
+            <div id="download-command" class="pre">ipfs get hash</div>
+
+            Consider pinning this hash to help make it available for other IPFS users!
+        </div>
+
+        <div id="tos">
+            <strong style="text-align: center; display: block">
+                Terms of Service: <a href="ToS.txt">must read before downloading</a>
+            </strong>
+        </div>
 
     </div>
 
@@ -169,6 +176,11 @@
         document.querySelectorAll("#filtercontrol>.tag").forEach((elem) => {
             elem.onclick = tag_filter;
         });
+
+        if (window.location.pathname.substr(0, 6) === "/ipfs/") {
+            document.querySelector("div#ipfs #download-command").innerText = "ipfs get " + window.location.pathname;
+            document.querySelector("div#ipfs").style.display = "";
+        }
     </script>
 </body>
 

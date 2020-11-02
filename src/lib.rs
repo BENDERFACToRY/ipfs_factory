@@ -194,6 +194,9 @@ pub fn write_season_index(season: &Season, output_root: &Path, data_dir: &Path) 
     let rendered: String = context.render()?;
     output.write_all(rendered.as_bytes())?;
 
+    std::fs::copy("static/style.css", f.with_file_name("style.css"))?;
+    std::fs::copy("static/ToS.txt", f.with_file_name("ToS.txt"))?;
+
     println!("Write season index to {}", f.display());
 
     Ok(())
@@ -208,6 +211,9 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path, _data_dir:
 
         let rendered: String = context.render()?;
         output.write_all(rendered.as_bytes())?;
+
+        std::fs::copy("static/style.css", f.with_file_name("style.css"))?;
+        std::fs::copy("static/ToS.txt", f.with_file_name("ToS.txt"))?;
 
         println!("Wrote recording index to {}", f.display());
     }

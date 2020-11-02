@@ -4,6 +4,7 @@
 <head>
     <title>BenderFactory Stems for </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="style.css" />
     <style>
         table#tracklist {
             width: 100%;
@@ -15,14 +16,6 @@
 
         div#intro {
             border-bottom: 2px solid darkblue;
-        }
-
-        div#container {
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
-            background-color: aliceblue;
         }
 
         div#tracklist {
@@ -68,8 +61,9 @@
                     <audio controls src="{{recording.stereo_mix.vorbis}}" preload="metadata"></audio>
                 </td>
                 <td>
-                    [<a href="{{recording.stereo_mix.flac}}">Flac</a> {{recording.stereo_mix.flac_size()}}]
-                    [<a href="{{recording.stereo_mix.vorbis}}">Ogg</a> {{recording.stereo_mix.ogg_size()}}]
+                    <a href="{{recording.stereo_mix.flac}}">Flac</a> {{recording.stereo_mix.flac_size()}}
+                    |
+                    <a href="{{recording.stereo_mix.vorbis}}">Ogg</a> {{recording.stereo_mix.ogg_size()}}
                 </td>
                 <td>
                     This is the stereo mix, and is basicaly what you would have heard during the live stream
@@ -86,8 +80,9 @@
                     <audio controls src="{{track.vorbis}}" preload="metadata"></audio>
                 </td>
                 <td>
-                    [<a href="{{track.flac}}">Flac</a> {{track.flac_size()}}]
-                    [<a href="{{track.vorbis}}">Ogg</a> {{track.ogg_size()}}]
+                    <a href="{{track.flac}}">Flac</a> {{track.flac_size()}}
+                    |
+                    <a href="{{track.vorbis}}">Ogg</a> {{track.ogg_size()}}
                 </td>
                 <td>
                     {{track.patch_notes()}}
@@ -97,8 +92,29 @@
             {% endfor %}
         </table>
 
+        <div id="ipfs" style="display: none">
+            If you have your own IPFS node, you can download this recording:
+
+            <div id="download-command" class="pre">ipfs get hash</div>
+
+            Consider pinning this hash to help make it available for other IPFS users!
+        </div>
+
+        <div id="tos">
+            <strong style="text-align: center; display: block">
+                Terms of Service: <a href="ToS.txt">must read before downloading</a>
+            </strong>
+        </div>
+
+
     </div>
 
+    <script>
+        if (window.location.pathname.substr(0, 6) === "/ipfs/") {
+            document.querySelector("div#ipfs #download-command").innerText = "ipfs get " + window.location.pathname;
+            document.querySelector("div#ipfs").style.display = "";
+        }
+    </script>
 
 </body>
 

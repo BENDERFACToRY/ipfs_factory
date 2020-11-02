@@ -14,6 +14,13 @@ fn main() -> Result<(), anyhow::Error> {
             .help("Validates the JSON schema and prints out a short summary of all known recordings and tracks")
         )
         .arg(
+            Arg::with_name("convert")
+            .conflicts_with("validate")
+            .long("convert")
+            .takes_value(false)
+            .help("Converts flacs to ogg, if necessary")
+        )
+        .arg(
             Arg::with_name("input")
             .short("i")
             .long("input")
@@ -51,9 +58,16 @@ fn main() -> Result<(), anyhow::Error> {
         }
     }
 
-    let output_root = Path::new(matches.value_of("output").expect("Missing --output argument"));
-
     let season = Season::load(season_json_path, data_dir_path)?;
+
+    if matches.is_present("convert") {
+        cb_processor::convert_all(&season)?;
+
+        return Ok(());
+    }
+
+    // Output dir for html and stuff (should probably the same as the --data dir)
+    let output_root = Path::new(matches.value_of("output").expect("Missing --output argument"));
 
     cb_processor::write_season_index(&season, output_root, data_dir_path)?;
 

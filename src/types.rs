@@ -16,6 +16,8 @@ pub(crate) struct SeasonInner {
 pub struct Season {
     pub title: String,
     pub recordings: Vec<Recording>,
+
+    pub(crate) ondisk_root: PathBuf,
 }
 
 impl Season {
@@ -40,6 +42,7 @@ impl Season {
         Ok(Season {
             title: inner.title,
             recordings,
+            ondisk_root: ondisk_root.to_owned(),
         })
     }
 }
@@ -157,6 +160,13 @@ impl Track {
             patch_notes: inner.patch_notes,
             ondisk_root: ondisk_root.to_owned(),
         })
+    }
+
+    pub fn flac_ondisk(&self) -> PathBuf {
+        self.ondisk_root.join(&self.flac)
+    }
+    pub fn ogg_ondisk(&self) -> PathBuf {
+        self.ondisk_root.join(&self.vorbis)
     }
 
     pub fn flac_size(&self) -> String {

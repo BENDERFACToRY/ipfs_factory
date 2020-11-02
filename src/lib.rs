@@ -45,6 +45,22 @@ pub fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow:
     return Ok(json);
 }
 
+pub fn convert_all(season: &Season) -> Result<(), anyhow::Error> {
+    for rec in &season.recordings {
+        if !rec.stereo_mix.ogg_ondisk().exists() {
+            convert_to_vorbis(&rec.stereo_mix.flac_ondisk(), &rec.stereo_mix.ogg_ondisk());
+        }
+
+        for track in &rec.tracks {
+            if !track.ogg_ondisk().exists() {
+                convert_to_vorbis(&track.flac_ondisk(), &track.ogg_ondisk());
+            }
+        }
+    }
+
+    Ok(())
+}
+
 pub fn convert_to_vorbis(input: &Path, output: &Path) -> Result<(), anyhow::Error> {
     let mut ffmpeg = Command::new("ffmpeg")
         .arg("-i")

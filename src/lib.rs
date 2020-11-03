@@ -118,6 +118,11 @@ impl MediaInfo {
     pub fn new<P: AsRef<Path>>(path: P) -> Result<MediaInfo, anyhow::Error> {
         let path = path.as_ref();
 
+        // make sure the path exists first
+        if !path.exists() {
+            bail!("Path {} does not exist", path.display());
+        }
+
         let mediainfo = Command::new("mediainfo")
             .arg("--Output=JSON")
             .arg(path)

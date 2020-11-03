@@ -56,6 +56,7 @@ pub(crate) struct RecordingInner {
     pub data_folder: String,
     pub stereo_mix: TrackInner,
     pub recorded_date: String,
+    pub youtube_url: Option<String>,
     pub torrent: String,
     pub tracks: Vec<TrackInner>,
     pub tags: Vec<String>,
@@ -70,6 +71,7 @@ pub struct Recording {
     pub torrent: String,
     pub tracks: Vec<Track>,
     pub tags: Vec<String>,
+    pub youtube_url: Option<String>,
 
     ondisk_root: PathBuf,
 }
@@ -95,6 +97,7 @@ impl Recording {
             data_folder: inner.data_folder,
             stereo_mix: Track::from_inner(inner.stereo_mix, &ondisk_root)?,
             recorded_date: inner.recorded_date,
+            youtube_url: inner.youtube_url,
             torrent: inner.torrent,
             tracks,
             tags: inner.tags,

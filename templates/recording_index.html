@@ -44,6 +44,9 @@
         <div id="intro">
             <p>
                 recorded on {{recording.recorded_date}}
+                {% if recording.youtube_url.is_some() %}
+                    <a href="{{recording.youtube_url.as_ref().unwrap() }}">Watch on Youtube</a>
+                {% endif %}
             </p>
             <p>
                 {{recording.duration()}} -- {{recording.format_info()}}
@@ -66,7 +69,12 @@
                     <a href="{{recording.stereo_mix.vorbis}}" download>Ogg</a> {{recording.stereo_mix.ogg_size()}}
                 </td>
                 <td>
-                    This is the stereo mix, and is basicaly what you would have heard during the live stream
+                    This is the stereo mix, and is basicaly what you would have heard during the
+                    {% if recording.youtube_url.is_some() %}
+                        <a href="{{recording.youtube_url.as_ref().unwrap() }}">live stream</a>
+                    {% else %}
+                        live stream
+                    {% endif %}
                 </td>
             </tr>
 

@@ -35,6 +35,11 @@
             "type": "string",
             "pattern": "^https?:\/\/(www\\.)?twitch.tv\/"
         },
+        "youtube_url": {
+            "type": "string",
+            "description": "A link to the youtube recording of this jam (with timestamp if possible)",
+            "pattern": "^https?:\/\/"            
+        },
         "bpm": {
             "type": "number",
             "minimum": 10,

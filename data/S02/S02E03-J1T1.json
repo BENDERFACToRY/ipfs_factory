@@ -1,0 +1,100 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S02E03 - Jam 1 (Take 1)",
+    "recorded_date": "2020/10/17",
+    "data_folder": "S02E03-J1T1",
+    "youtube_url": "https://youtu.be/Cjw-XBzkb4A?list=PLBOwYevicX2A7mC2Y6yP7rKq0PIlYEJsQ&t=2194",
+    "torrent": "Colin Benders - S02E03 - Jam 1 - Take 1 (FLAC).torrent",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 17-201017_1802.flac",
+        "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 1 - 17-201017_1802.ogg"
+    },
+    "bpm": 131,
+    "tags": [
+        "arp"
+    ],
+    "tracks": [
+        {
+            "id": 2,
+            "name": "Drums/Kick",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 02-201017_1802.flac",
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 1 - 02-201017_1802.ogg"
+        },
+        {
+            "id": 3,
+            "name": "Drums/Symbol",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 03-201017_1802.flac",
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 1 - 03-201017_1802.ogg"
+        },
+        {
+            "id": 4,
+            "name": "??",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 04-201017_1802.flac",
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 1 - 04-201017_1802.ogg",
+            "patch_notes": "Seems to be mostly silence"
+        },
+        {
+            "id": 5,
+            "name": "Rhythm bass thing",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 05-201017_1802.flac",
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 1 - 05-201017_1802.ogg"
+        },
+        {
+            "id": 6,
+            "name": "Arp/1",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 06-201017_1802.flac",
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 1 - 06-201017_1802.ogg"
+        },
+        {
+            "id": 8,
+            "name": "??",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 08-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 08-201017_1802.ogg"
+        },
+        {
+            "id": 9,
+            "name": "Reverb",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 09-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 09-201017_1802.ogg"
+        },
+        {
+            "id": 10,
+            "name": "Reverb",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 10-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 10-201017_1802.ogg"
+        },
+        {
+            "id": 11,
+            "name": "??",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 11-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 11-201017_1802.ogg"
+        },
+        {
+            "id": 12,
+            "name": "??",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 12-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 12-201017_1802.ogg"
+        },
+        {
+            "id": 13,
+            "name": "??",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 13-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 13-201017_1802.ogg"
+        },
+        {
+            "id": 14,
+            "name": "??",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 14-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 14-201017_1802.ogg"
+        },
+        {
+            "id": 16,
+            "name": "??",
+            "flac": "Colin Benders - S02E03 - Jam 1 - Take 1 - 16-201017_1802.flac",
+            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 1 - Take 1 - 16-201017_1802.ogg"
+        }
+       
+    ]
+}

@@ -2,8 +2,15 @@
     "$schema": "./schema/season.json",
     "title": "Season 2",
     "recordings": [
+        "S02/S02E03-J1T0.json",
+        "S02/S02E03-J1T1.json",
         "S02/S02E03-J1T2.json",
+        "S02/S02E03-J1T3.json",
         "S02/S02E06-J1.json",
-        "S02/S02E07-J1.json"
+        "S02/S02E07-J1.json",
+        "S02/S02E07-J2.json",
+        "S02/S02E07-J3.json",
+        "S02/S02E08-J1.json",
+        "S02/S02E08-J2.json"
     ]
 }

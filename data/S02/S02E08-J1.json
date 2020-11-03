@@ -1,0 +1,106 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S02E08 - Jam 1",
+    "recorded_date": "2020/10/27",
+    "data_folder": "S02E08-J1",
+    "torrent": "Colin Benders - S02E08 - Jam 1 (FLAC).torrent",
+    "youtube_url": "https://youtu.be/OUcxRSr_ASk?list=PLBOwYevicX2A7mC2Y6yP7rKq0PIlYEJsQ&t=6065",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "Colin Benders - S02E08 - Jam 1 - 17-201027_1937.flac",
+        "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 17-201027_1937.ogg"
+    },
+    "bpm": 131,
+    "tags": [
+        "arp",
+        "floaty",
+        "placeholder"
+    ],
+    "tracks": [
+        {
+            "id": 2,
+            "name": "Drums/kick",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 02-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 02-201027_1937.ogg"
+        },
+        {
+            "id": 3,
+            "name": "Drums/Clap",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 03-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 03-201027_1937.ogg"
+        },
+        {
+            "id": 4,
+            "name": "Drums",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 04-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 04-201027_1937.ogg"
+        },
+        {
+            "id": 5,
+            "name": "Bass drone",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 05-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 05-201027_1937.ogg"
+        },
+        {
+            "id": 6,
+            "name": "Bass something",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 06-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 06-201027_1937.ogg"
+        },
+        {
+            "id": 7,
+            "name": "Arp/1",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 07-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 07-201027_1937.ogg"
+        },
+        {
+            "id": 9,
+            "name": "Reverb",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 09-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 09-201027_1937.ogg"
+        },
+        {
+            "id": 10,
+            "name": "Reverb",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 10-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 10-201027_1937.ogg"
+        },
+        {
+            "id": 11,
+            "name": "Bus (??)",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 11-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 11-201027_1937.ogg"
+        },
+        {
+            "id": 12,
+            "name": "Bus (???)",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 12-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 12-201027_1937.ogg"
+        },
+        {
+            "id": 13,
+            "name": "Bus (???)",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 13-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 13-201027_1937.ogg"
+        },
+        {
+            "id": 14,
+            "name": "Bus (??)",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 14-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 14-201027_1937.ogg"
+        },
+        {
+            "id": 15,
+            "name": "Bus (wet reverb?)",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 15-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 15-201027_1937.ogg"
+        },
+        {
+            "id": 16,
+            "name": "Bus (web reverb?)",
+            "flac": "Colin Benders - S02E08 - Jam 1 - 16-201027_1937.flac",
+            "vorbis": "ogg/Colin Benders - S02E08 - Jam 1 - 16-201027_1937.ogg"
+        }
+    ]
+}

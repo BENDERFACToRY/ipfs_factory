@@ -1,0 +1,110 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S02E04 - Jam 3",
+    "recorded_date": "2020/10/19",
+    "data_folder": "S02E04-J3",
+    "youtube_url": "https://youtu.be/obNbJTWoPYo?list=PLBOwYevicX2A7mC2Y6yP7rKq0PIlYEJsQ",
+    "torrent": "Colin Benders - S02E04 - Jam 3 (FLAC).torrent",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "Colin Benders - S02E04 - Jam 3 - 17-201019_2114.flac",
+        "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 17-201019_2114.ogg"
+    },
+    "bpm": 134,
+    "tags": [
+        "arp"
+    ],
+    "tracks": [
+        {
+            "id": 1,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 01-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 01-201019_2114.ogg"
+        },
+        {
+            "id": 2,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 02-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 02-201019_2114.ogg"
+        },
+        {
+            "id": 3,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 03-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 03-201019_2114.ogg"
+        },
+        {
+            "id": 4,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 04-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 04-201019_2114.ogg"
+        },
+        {
+            "id": 5,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 05-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 05-201019_2114.ogg"
+        },
+        {
+            "id": 6,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 06-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 06-201019_2114.ogg"
+        },
+        {
+            "id": 7,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 07-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 07-201019_2114.ogg"
+        },
+        {
+            "id": 8,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 08-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 08-201019_2114.ogg"
+        },
+        {
+            "id": 9,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 09-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 09-201019_2114.ogg"
+        },
+        {
+            "id": 10,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 10-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 10-201019_2114.ogg"
+        },
+        {
+            "id": 11,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 11-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 11-201019_2114.ogg"
+        },
+        {
+            "id": 12,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 12-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 12-201019_2114.ogg"
+        },
+        {
+            "id": 13,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 13-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 13-201019_2114.ogg"
+        },
+        {
+            "id": 14,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 14-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 14-201019_2114.ogg"
+        },
+        {
+            "id": 15,
+            "name": "??",
+            "flac": "Colin Benders - S02E04 - Jam 3 - 15-201019_2114.flac",
+            "vorbis": "ogg/Colin Benders - S02E04 - Jam 3 - 15-201019_2114.ogg"
+        }
+    ]
+}

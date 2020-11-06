@@ -82,11 +82,13 @@
                 },
                 "flac": {
                     "type": "string",
-                    "description": "Local path to the lossless FLAC recording, relative to $DATA_DIR"
+                    "description": "Local path to the lossless FLAC recording, relative to $DATA_DIR",
+                    "pattern": "^[/A-Za-z0-9 -_]+\\.flac$"
                 },
                 "vorbis": {
                     "type": "string",
-                    "description": "(optional) Local path to the lossy ogg vorbis version, relative to $DATA_DIR"
+                    "description": "(optional) Local path to the lossy ogg vorbis version, relative to $DATA_DIR",
+                    "pattern": "^[/A-Za-z0-9 -_]+\\.ogg$"
                 },
                 "name": {
                     "type": "string",

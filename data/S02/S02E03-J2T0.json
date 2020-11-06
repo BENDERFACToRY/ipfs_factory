@@ -11,7 +11,6 @@
         "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 17-201017_1802.flac",
         "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 17-201017_1802.ogg"
     },
-    "bpm": 131,
     "tags": [
         "arp"
     ],
@@ -44,43 +43,43 @@
             "id": 6,
             "name": "??",
             "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 06-201017_1802.flac",
-            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 2 - Take 0 - 06-201017_1802.ogg"
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 06-201017_1802.ogg"
         },
         {
             "id": 7,
             "name": "??",
             "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 07-201017_1802.flac",
-            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 2 - Take 0 - 07-201017_1802.ogg"
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 07-201017_1802.ogg"
         },
         {
             "id": 8,
             "name": "??",
             "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 08-201017_1802.flac",
-            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 2 - Take 0 - 08-201017_1802.ogg"
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 08-201017_1802.ogg"
         },
         {
             "id": 9,
             "name": "??",
             "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 09-201017_1802.flac",
-            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 2 - Take 0 - 09-201017_1802.ogg"
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 09-201017_1802.ogg"
         },
         {
             "id": 10,
             "name": "??",
             "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 10-201017_1802.flac",
-            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 2 - Take 0 - 10-201017_1802.ogg"
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 10-201017_1802.ogg"
         },
         {
             "id": 11,
             "name": "??",
             "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 11-201017_1802.flac",
-            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 2 - Take 0 - 11-201017_1802.ogg"
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 11-201017_1802.ogg"
         },
         {
             "id": 12,
             "name": "??",
             "flac": "Colin Benders - S02E03 - Jam 2 - Take 0 - 12-201017_1802.flac",
-            "vorbis": "ogg/'Colin Benders - S02E03 - Jam 2 - Take 0 - 12-201017_1802.ogg"
+            "vorbis": "ogg/Colin Benders - S02E03 - Jam 2 - Take 0 - 12-201017_1802.ogg"
         }
     ]
 }

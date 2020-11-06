@@ -49,7 +49,16 @@
                 {% endif %}
             </p>
             <p>
-                {{recording.duration()}} -- {{recording.format_info()}}
+                {{recording.duration()}} <br/>
+                {{recording.format_info()}} <br/>
+                {% if recording.bpm.is_some() %}
+                {{ recording.bpm.as_ref().unwrap() }} bpm
+                {% endif %}
+            </p>
+            <p>
+                {% for tag in recording.tags %}
+                <span class="tag" data-tag="{{tag}}">{{tag}}</span>
+                {% endfor %}
             </p>
         </div>
 

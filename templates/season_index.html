@@ -32,19 +32,7 @@
             margin: 5px;
         }
 
-        .tag {
-            border-radius: 8px;
-            background-color: lightblue;
-            padding: 3px 8px 3px 8px;
-        }
 
-        .tag.filtered {
-            background-color: lightcoral;
-        }
-
-        .tag:before {
-            content: "#"
-        }
     </style>
 
     <script>
@@ -134,6 +122,11 @@
                 <td>
                     <audio controls src="{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}"
                         preload="metadata"></audio>
+                </td>
+                <td>
+                    {% if recording.bpm.is_some() %}
+                    {{ recording.bpm.as_ref().unwrap() }} bpm
+                    {% endif %}
                 </td>
                 <td>
                     <!-- technical details of the recording here-->

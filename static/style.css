@@ -17,3 +17,17 @@ div#ipfs .pre {
     padding: 5px;
     margin: 5px;
 }
+
+.tag {
+    border-radius: 8px;
+    background-color: lightblue;
+    padding: 3px 8px 3px 8px;
+}
+
+.tag.filtered {
+    background-color: lightcoral;
+}
+
+.tag:before {
+    content: "#"
+}

@@ -81,7 +81,7 @@ impl Recording {
     /// Load info about a recording, given a path to its json file
     pub fn load<P: AsRef<Path>>(json: P, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
         let json = json.as_ref();
-        let json_root = json.parent().unwrap();
+        let _json_root = json.parent().unwrap();
 
         let inner = crate::get_validated_json(json)?;
         let inner: RecordingInner = serde_json::from_value(inner)?;

@@ -1,7 +1,6 @@
 use std::io::Write;
 use std::{
     collections::HashSet,
-    fs::read_dir,
     fs::File,
     path::{Path, PathBuf},
     process::{Command, Stdio},
@@ -49,12 +48,12 @@ pub fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow:
 pub fn convert_all(season: &Season) -> Result<(), anyhow::Error> {
     for rec in &season.recordings {
         if !rec.stereo_mix.ogg_ondisk().exists() {
-            convert_to_vorbis(&rec.stereo_mix.flac_ondisk(), &rec.stereo_mix.ogg_ondisk());
+            convert_to_vorbis(&rec.stereo_mix.flac_ondisk(), &rec.stereo_mix.ogg_ondisk())?;
         }
 
         for track in &rec.tracks {
             if !track.ogg_ondisk().exists() {
-                convert_to_vorbis(&track.flac_ondisk(), &track.ogg_ondisk());
+                convert_to_vorbis(&track.flac_ondisk(), &track.ogg_ondisk())?;
             }
         }
     }
@@ -199,7 +198,7 @@ pub struct RecordingIndexTemplate<'a> {
 
 // handlebars_helper!(filename: |v: u32| f.filename());
 
-pub fn write_season_index(season: &Season, output_root: &Path, data_dir: &Path) -> Result<(), anyhow::Error> {
+pub fn write_season_index(season: &Season, output_root: &Path, _data_dir: &Path) -> Result<(), anyhow::Error> {
     let mut tag_set = HashSet::new();
     for rec in &season.recordings {
         for tag in &rec.tags {
@@ -243,96 +242,6 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path, _data_dir:
     Ok(())
 }
 
-fn process(root: &Path) -> Result<(), anyhow::Error> {
-    if !root.exists() {
-        bail!("Directory {:?} doesn't exist!", root);
-    }
-
-    println!("Processing {}", root.display());
-
-    let _ = std::fs::create_dir(root.join("ogg"));
-
-    let mut files = Vec::new();
-    let mut tos = None;
-    let mut torrent = None;
-
-    println!("Scanning {}", root.display());
-    for file in read_dir(root)? {
-        let file = file?;
-        let file_path = file.path();
-        if file_path.extension().map_or(false, |e| e == "flac") {
-            // convert this to ogg
-            let ogg_path = root
-                .join("ogg")
-                .join(file_path.file_name().unwrap())
-                .with_extension("ogg");
-            if ogg_path.exists() {
-                println!("  {} already exists, skipping conversion", ogg_path.display());
-            } else {
-                println!("  {} converting to ogg....", ogg_path.display());
-                convert_to_vorbis(&file_path, &ogg_path)?;
-            }
-
-            let media_info = MediaInfo::new(&file_path)?;
-            println!("{:#?}", media_info);
-            let duration: f32 = media_info.duration.parse()?;
-
-            let sample_rate: f32 = media_info.sample_rate.parse()?;
-
-            files.push(AudioFile {
-                orig_path: file_path.to_owned(),
-                orig_size_bytes: file.metadata()?.len(),
-                ogg_path: ogg_path.to_owned(),
-                ogg_size_bytes: std::fs::metadata(ogg_path)?.len(),
-                duration: Duration::from_secs(duration.floor() as u64),
-                format_str: format!(
-                    "{}ch {:.1}kHz {}bit",
-                    media_info.channels,
-                    sample_rate / 1000.0,
-                    media_info.bit_depth
-                ),
-            })
-        }
-        if file_path.extension().map_or(false, |e| e == "txt") {
-            tos = Some(file_path.clone());
-        }
-        if file_path.extension().map_or(false, |e| e == "torrent") {
-            torrent = Some(file_path.clone());
-        }
-    }
-
-    let tos = tos.expect("No TOS file found");
-    let torrent = torrent.expect("No torrent file found");
-
-    files.sort_by_key(|f| f.filename());
-
-    // write_index(
-    //     &root,
-    //     &files,
-    //     tos.file_name().unwrap().to_string_lossy().to_string(),
-    //     root.canonicalize()?
-    //         .file_name()
-    //         .unwrap()
-    //         .to_string_lossy()
-    //         .to_string(),
-    //     torrent.file_name().unwrap().to_string_lossy().to_string(),
-    // )?;
-
-    let season_tos = tos.parent().unwrap().parent().unwrap().join(tos.file_name().unwrap());
-    println!("Copying ToS from {} to {}", tos.display(), season_tos.display());
-    std::fs::copy(tos, &season_tos)?;
-
-    // write_season_index(
-    //     root.parent().unwrap(),
-    //     season_tos
-    //         .file_name()
-    //         .unwrap()
-    //         .to_string_lossy()
-    //         .to_string(),
-    // )?;
-
-    Ok(())
-}
 
 /// Returns the number of errors found
 pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<usize> {

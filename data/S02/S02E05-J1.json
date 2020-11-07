@@ -11,56 +11,57 @@
         "flac": "Colin Benders - S02E05 - Jam 1 - 17-201020_1852.flac",
         "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 17-201020_1852.ogg"
     },
-    "bpm": 140,
+    "bpm": 70,
     "tags": [
         "arp"
     ],
     "tracks": [
         {
             "id": 2,
-            "name": "??",
+            "name": "Drums/kick",
             "flac": "Colin Benders - S02E05 - Jam 1 - 02-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 02-201020_1852.ogg"
         },
         {
             "id": 3,
-            "name": "??",
+            "name": "Drums",
             "flac": "Colin Benders - S02E05 - Jam 1 - 03-201020_1852.flac",
-            "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 03-201020_1852.ogg"
+            "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 03-201020_1852.ogg",
+            "patch_notes": "Clicks, claps, and some symbols"
         },
         {
             "id": 4,
-            "name": "??",
+            "name": "Drums/symbol",
             "flac": "Colin Benders - S02E05 - Jam 1 - 04-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 04-201020_1852.ogg"
         },
         {
             "id": 5,
-            "name": "??",
+            "name": "Bass",
             "flac": "Colin Benders - S02E05 - Jam 1 - 05-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 05-201020_1852.ogg"
         },
         {
             "id": 6,
-            "name": "??",
+            "name": "Melody",
             "flac": "Colin Benders - S02E05 - Jam 1 - 06-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 06-201020_1852.ogg"
         },
         {
             "id": 7,
-            "name": "??",
+            "name": "Plucky Synth",
             "flac": "Colin Benders - S02E05 - Jam 1 - 07-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 07-201020_1852.ogg"
         },
         {
             "id": 9,
-            "name": "??",
+            "name": "Reverb",
             "flac": "Colin Benders - S02E05 - Jam 1 - 09-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 09-201020_1852.ogg"
         },
         {
             "id": 10,
-            "name": "??",
+            "name": "Reverb",
             "flac": "Colin Benders - S02E05 - Jam 1 - 10-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 10-201020_1852.ogg"
         },
@@ -90,7 +91,7 @@
         },
         {
             "id": 15,
-            "name": "??",
+            "name": "Arp",
             "flac": "Colin Benders - S02E05 - Jam 1 - 15-201020_1852.flac",
             "vorbis": "ogg/Colin Benders - S02E05 - Jam 1 - 15-201020_1852.ogg"
         }

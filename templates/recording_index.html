@@ -34,11 +34,11 @@
     <script>
         let directory_handle = undefined;
         const ogg_files = [
-        {% for track in recording.tracks %}"{{track.vorbis|safe}}",{% endfor %},
+        {% for track in recording.tracks %}"{{track.vorbis|safe}}",{% endfor %}
         "{{recording.stereo_mix.vorbis|safe}}"
         ];
         const flag_files = [
-        {% for track in recording.tracks %}"{{track.flac|safe}}",{% endfor %},
+        {% for track in recording.tracks %}"{{track.flac|safe}}",{% endfor %}
         "{{recording.stereo_mix.flac|safe}}"
         ];
 

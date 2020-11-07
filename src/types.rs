@@ -129,6 +129,22 @@ impl Recording {
             format!("{}m {}s", min, sec)
         }
     }
+
+    pub fn flac_size_str(&self) -> String {
+        let total_bytes = self
+            .tracks
+            .iter()
+            .fold(self.stereo_mix.flac_size_bytes(), |v, t| v + t.flac_size_bytes());
+        format!("{}MB", total_bytes / 1024 / 1024)
+    }
+
+    pub fn ogg_size_str(&self) -> String {
+        let total_bytes = self
+            .tracks
+            .iter()
+            .fold(self.stereo_mix.ogg_size_bytes(), |v, t| v + t.ogg_size_bytes());
+        format!("{}MB", total_bytes / 1024 / 1024)
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -175,7 +191,7 @@ impl Track {
         self.ondisk_root.join(&self.vorbis)
     }
 
-    pub fn flac_size(&self) -> String {
+    pub fn flac_size_str(&self) -> String {
         if let Ok(md) = std::fs::metadata(self.ondisk_root.join(&self.flac)) {
             format!("{}MB", md.len() / 1024 / 1024)
         } else {
@@ -183,12 +199,20 @@ impl Track {
         }
     }
 
-    pub fn ogg_size(&self) -> String {
+    pub fn flac_size_bytes(&self) -> u64 {
+        std::fs::metadata(self.ondisk_root.join(&self.flac)).unwrap().len()
+    }
+
+    pub fn ogg_size_str(&self) -> String {
         if let Ok(md) = std::fs::metadata(self.ondisk_root.join(&self.vorbis)) {
             format!("{}MB", md.len() / 1024 / 1024)
         } else {
             format!("unknown")
         }
+    }
+
+    pub fn ogg_size_bytes(&self) -> u64 {
+        std::fs::metadata(self.ondisk_root.join(&self.vorbis)).unwrap().len()
     }
 
     pub fn patch_notes(&self) -> &str {

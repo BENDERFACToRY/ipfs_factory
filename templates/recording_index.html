@@ -23,14 +23,89 @@
             flex-direction: column;
         }
 
-        div#track {
+        div.track {
             display: flex;
         }
 
-        div#track #id {
+        div.track .id {
             width: 100px;
         }
     </style>
+    <script>
+        let directory_handle = undefined;
+        const ogg_files = [
+        {% for track in recording.tracks %}"{{track.vorbis|safe}}",{% endfor %},
+        "{{recording.stereo_mix.vorbis|safe}}"
+        ];
+        const flag_files = [
+        {% for track in recording.tracks %}"{{track.flac|safe}}",{% endfor %},
+        "{{recording.stereo_mix.flac|safe}}"
+        ];
+
+
+        async function get_dir_handle() {
+            if (directory_handle == undefined) {
+                directory_handle = await window.showDirectoryPicker();
+            }
+            return directory_handle;
+        }
+
+        async function writeURLToFile(fileHandle, url) {
+            const writeable = await fileHandle.createWritable();
+            const resp = await fetch(url);
+            await resp.body.pipeTo(writeable);
+        }
+
+        async function do_download(name, url) {
+            const hand = await get_dir_handle();
+            const filehand = await hand.getFileHandle(name, { create: true });
+            await writeURLToFile(filehand, url);
+        }
+
+        function do_download_sync (name, url) {
+            do_download(name, url).then(() => {
+                console.log("Download done!");
+            }, (e) => {
+                console.log(e);
+            });
+
+        }
+
+        async function download_list(file_list) {
+            const pbar = document.createElement("progress")
+            document.querySelector("#download_progress").replaceChildren(pbar)
+
+            pbar.max = file_list.length;
+            pbar.value = 0;
+            for (const path of file_list) {
+                const idx = path.lastIndexOf("/");
+                const name = path.substr(idx + 1);
+                console.log("Downloading " + name + "...");
+                await do_download(name, path);
+                pbar.value += 1;
+                console.log("Done");
+            }
+            document.getElementById("download_progress").innerText = "Download complete!";
+        }
+
+        function download_ogg_sync() {
+            download_list(ogg_files).then(() => {
+                console.log("Download done!");
+            }, (e) => {
+                console.log(e);
+            });
+        }
+
+        function download_flac_sync() {
+            download_list(flag_files).then(() => {
+                console.log("Download done!");
+            }, (e) => {
+                console.log(e);
+            });
+        }
+
+
+    </script>
 </head>
 
 <body>
@@ -45,7 +120,7 @@
             <p>
                 recorded on {{recording.recorded_date}}
                 {% if recording.youtube_url.is_some() %}
-                    <a href="{{recording.youtube_url.as_ref().unwrap() }}">Watch on Youtube</a>
+                    <a href="{{recording.youtube_url.as_ref().unwrap()|safe}}">Watch on Youtube</a>
                 {% endif %}
             </p>
             <p>
@@ -60,27 +135,41 @@
                 <span class="tag" data-tag="{{tag}}">{{tag}}</span>
                 {% endfor %}
             </p>
+
+            <p id="browserdownload" style="display: none">
+                Experimental browser download (requires a recent version of chrome)
+
+                <button onclick="download_ogg_sync()">Download all Ogg ({{recording.ogg_size_str()}})</button>
+                <button onclick="download_flac_sync()">Download all Flac ({{recording.flac_size_str()}})</button>
+                <div id="download_progress">
+                    <!-- <label for="bar"></label> -->
+                    <!-- <progress id="bar"></progress> -->
+                </div>
+            </p>
+            <p>
+                Download <a href="{{recording.torrent|safe}}">.torrent</a> with all flac files
+            </p>
         </div>
 
 
         <table id="tracklist">
 
-            <tr id="track">
+            <tr class="track">
                 <td>
                     Stereo mix
                 </td>
                 <td>
-                    <audio controls src="{{recording.stereo_mix.vorbis}}" preload="metadata"></audio>
+                    <audio controls src="{{recording.stereo_mix.vorbis|safe}}" preload="metadata"></audio>
                 </td>
                 <td>
-                    <a href="{{recording.stereo_mix.flac}}" download>Flac</a> {{recording.stereo_mix.flac_size()}}
+                    <a href="{{recording.stereo_mix.flac|safe}}" download>Flac</a> {{recording.stereo_mix.flac_size_str()}}
                     |
-                    <a href="{{recording.stereo_mix.vorbis}}" download>Ogg</a> {{recording.stereo_mix.ogg_size()}}
+                    <a href="{{recording.stereo_mix.vorbis|safe}}" download>Ogg</a> {{recording.stereo_mix.ogg_size_str()}}
                 </td>
                 <td>
                     This is the stereo mix, and is basicaly what you would have heard during the
                     {% if recording.youtube_url.is_some() %}
-                        <a href="{{recording.youtube_url.as_ref().unwrap() }}">live stream</a>
+                        <a href="{{recording.youtube_url.as_ref().unwrap()|safe}}">live stream</a>
                     {% else %}
                         live stream
                     {% endif %}
@@ -88,18 +177,18 @@
             </tr>
 
             {% for track in recording.tracks %}
-            <tr id="track">
+            <tr class="track">
 
-                <td id="id">
+                <td class="id">
                     track {{track.id}}: <br /> {{track.name}}
                 </td>
                 <td>
-                    <audio controls src="{{track.vorbis}}" preload="metadata"></audio>
+                    <audio controls src="{{track.vorbis|safe}}" preload="metadata"></audio>
                 </td>
                 <td>
-                    <a href="{{track.flac}}" download>Flac</a> {{track.flac_size()}}
+                    <a href="{{track.flac|safe}}" download>Flac</a> {{track.flac_size_str()}}
                     |
-                    <a href="{{track.vorbis}}" download>Ogg</a> {{track.ogg_size()}}
+                    <a href="{{track.vorbis|safe}}" download>Ogg</a> {{track.ogg_size_str()}}
                 </td>
                 <td>
                     {{track.patch_notes()}}
@@ -130,6 +219,9 @@
         if (window.location.pathname.substr(0, 6) === "/ipfs/") {
             document.querySelector("div#ipfs #download-command").innerText = "ipfs get " + window.location.pathname;
             document.querySelector("div#ipfs").style.display = "";
+        }
+        if (window.showDirectoryPicker !== undefined) {
+            document.getElementById("browserdownload").style.display = "";
         }
     </script>
 

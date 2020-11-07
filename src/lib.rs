@@ -16,6 +16,7 @@ use types::{Recording, RecordingInner, Season};
 use valico::json_schema;
 
 pub mod types;
+pub mod ipfs;
 
 pub fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow::Error> {
     let file = File::open(json_path)?;

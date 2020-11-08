@@ -5,7 +5,7 @@ season, for each recording in a season, and for each track in a
 recording.
 
 If you are going to edit these JSON files, it is recommended that you use an editor
-with support for JSDON schema validation (for example, [VSCode](https://code.visualstudio.com/))
+with support for JSON schema validation (for example, [VSCode](https://code.visualstudio.com/)).
 
 ## Recording data
 

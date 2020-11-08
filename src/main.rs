@@ -5,7 +5,6 @@ use cb_processor::{types::Season, validate_and_print};
 use clap::{App, Arg};
 use std::str::FromStr;
 
-
 fn main() -> Result<(), anyhow::Error> {
     let matches = App::new("cb_processor")
         .version("0.0.1")
@@ -14,6 +13,10 @@ fn main() -> Result<(), anyhow::Error> {
             .long("patch")
             .takes_value(false)
             .requires_all(&["hash", "output"])
+        )
+        .arg(
+            Arg::with_name("prime")
+            .long("prime")
         )
         .arg(
             Arg::with_name("hash")
@@ -59,6 +62,14 @@ fn main() -> Result<(), anyhow::Error> {
         )
         .get_matches();
 
+    if matches.is_present("prime") {
+        let root_hash = matches.value_of("hash").expect("Missing --hash argument");
+        let root_hash = cid::Cid::from_str(root_hash).unwrap();
+        cb_processor::ipfs::prime_public_gateways(&root_hash)?;
+
+        return Ok(());
+    }
+
     if matches.is_present("patch") {
         let root_hash = matches.value_of("hash").expect("Missing --hash argument");
         let root_dir = Path::new(matches.value_of("output").expect("Missing --output argument"));
@@ -67,7 +78,10 @@ fn main() -> Result<(), anyhow::Error> {
 
         println!("New root object {}", new_cid);
         let b32 = cid::Cid::new_v1(new_cid.codec(), new_cid.hash().to_owned());
-        println!("https://{}.ipfs.dweb.link", b32.to_string_of_base(multibase::Base::Base32Lower).unwrap());
+        println!(
+            "https://{}.ipfs.dweb.link",
+            b32.to_string_of_base(multibase::Base::Base32Lower).unwrap()
+        );
 
         return Ok(());
     }

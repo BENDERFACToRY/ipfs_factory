@@ -143,6 +143,42 @@ mod serde_cid {
     }
 }
 
+pub fn prime_public_gateways(root_hash: &cid::Cid) -> anyhow::Result<()> {
+    let gateways = vec![
+        "https://{base32}.ipfs.dweb.link",
+        "https://gateway.ipfs.io/ipfs/{v0}",
+        "https://ipfs.io/ipfs/{v0}",
+        "https://ipfs.overpi.com/ipfs/{v0}",
+        // "https://{base32}.ipfs.ipfs.stibarc.com",
+        "https://{base32}.ipfs.cf-ipfs.com",
+        "https://{base32}.ipfs.jacl.tech",
+    ];
+
+    let b32 = cid::Cid::new_v1(root_hash.codec(), root_hash.hash().to_owned());
+    let v0 = cid::Cid::new_v0(root_hash.hash().to_owned())?;
+
+    let ipfs_root = IPFSObject::get(&root_hash)?;
+
+    for gw in gateways {
+        let gw = gw
+            .replace("{base32}", &format!("{}", b32))
+            .replace("{v0}", &format!("{}", v0));
+        let base_url = reqwest::Url::parse(&gw)?;
+        print!("Priming {}... ", base_url);
+        let resp = reqwest::blocking::get(base_url.clone())?;
+        println!(" {}", resp.status());
+
+        for link in &ipfs_root.links {
+            let url = reqwest::Url::parse(&format!("{}/{}", gw, link.name))?;
+            print!("  {}...", url);
+            let resp = reqwest::blocking::get(url.clone())?;
+            println!(" {}", resp.status());
+        }
+    }
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

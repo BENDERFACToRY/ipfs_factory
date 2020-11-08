@@ -14,8 +14,8 @@ use serde_json::Value;
 use types::{Recording, RecordingInner, Season};
 use valico::json_schema;
 
-pub mod types;
 pub mod ipfs;
+pub mod types;
 
 pub fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow::Error> {
     let file = File::open(json_path)?;
@@ -241,7 +241,6 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path, _data_dir:
 
     Ok(())
 }
-
 
 /// Returns the number of errors found
 pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<usize> {

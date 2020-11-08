@@ -99,12 +99,16 @@ pub fn patch_root_object<P: AsRef<Path>>(root_hash: &cid::Cid, root_dir: P) -> a
 
         if local_link.exists() && local_link.is_file() && patchable.contains(&link.name.as_str()) {
             let new_cid = ipfs_add(&local_link)?;
-            println!("Patching {} with {} ({})", link.name, local_link.display(), new_cid);
-            root_obj = root_obj.add_link(&link.name, &new_cid)?;
+            if new_cid != link.hash {
+                println!("Patching {} with {} ({})", link.name, local_link.display(), new_cid);
+                root_obj = root_obj.add_link(&link.name, &new_cid)?;
+            }
         }
         if local_link.exists() && local_link.is_dir() {
             let new_cid = patch_root_object(&link.hash, &local_link)?;
-            root_obj = root_obj.add_link(&link.name, &new_cid)?;
+            if new_cid != link.hash {
+                root_obj = root_obj.add_link(&link.name, &new_cid)?;
+            }
         }
     }
 

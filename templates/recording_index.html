@@ -76,8 +76,16 @@
         }
 
         async function download_list(file_list) {
+            try {
+                await get_dir_handle();
+            } catch (e) {
+                document.querySelector("#download_progress").innerText = e;
+                return;
+            }
             const pbar = document.createElement("progress")
             document.querySelector("#download_progress").replaceChildren(pbar)
+            const span = document.createElement("span")
+            document.querySelector("#download_progress").appendChild(span)
 
             pbar.max = file_list.length;
             pbar.value = 0;
@@ -85,6 +93,7 @@
                 const idx = path.lastIndexOf("/");
                 const name = path.substr(idx + 1);
                 console.log("Downloading " + name + "...");
+                span.innerHTML = "Downloading " + name + "...";
                 await do_download(name, path);
                 pbar.value += 1;
                 console.log("Done");

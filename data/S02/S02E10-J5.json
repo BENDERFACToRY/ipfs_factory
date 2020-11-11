@@ -1,0 +1,102 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S02E10 - Jam 5",
+    "recorded_date": "2020/11/07",
+    "data_folder": "S02E10-J5",
+    "torrent": "Colin Benders - S02E10 - Jam 5 (FLAC).torrent",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "Colin Benders - S02E10 - Jam 5 - 17-201107_1954.flac",
+        "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 17-201107_1954.ogg"
+    },
+    "tags": [
+        "placeholder"
+    ],
+    "tracks": [
+        {
+            "id": 2,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 02-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 02-201107_1954.ogg"
+        },
+        {
+            "id": 3,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 03-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 03-201107_1954.ogg"
+        },
+        {
+            "id": 4,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 04-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 04-201107_1954.ogg"
+        },
+        {
+            "id": 5,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 05-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 05-201107_1954.ogg"
+        },
+        {
+            "id": 6,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 06-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 06-201107_1954.ogg"
+        },
+        {
+            "id": 7,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 07-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 07-201107_1954.ogg"
+        },
+        {
+            "id": 9,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 09-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 09-201107_1954.ogg"
+        },
+        {
+            "id": 10,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 10-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 10-201107_1954.ogg"
+        },
+        {
+            "id": 11,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 11-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 11-201107_1954.ogg"
+        },
+        {
+            "id": 12,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 12-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 12-201107_1954.ogg"
+        },
+        {
+            "id": 13,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 13-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 13-201107_1954.ogg"
+        },
+        {
+            "id": 14,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 14-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 14-201107_1954.ogg"
+        },
+        {
+            "id": 15,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 15-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 15-201107_1954.ogg"
+        },
+        {
+            "id": 16,
+            "name": "??",
+            "flac": "Colin Benders - S02E10 - Jam 5 - 16-201107_1954.flac",
+            "vorbis": "ogg/Colin Benders - S02E10 - Jam 5 - 16-201107_1954.ogg"
+        }
+    ]
+}

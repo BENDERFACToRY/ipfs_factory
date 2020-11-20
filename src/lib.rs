@@ -224,6 +224,11 @@ pub fn write_season_index(season: &Season, output_root: &Path, _data_dir: &Path)
 }
 
 pub fn write_all_recording_index(season: &Season, output_root: &Path, _data_dir: &Path) -> Result<(), anyhow::Error> {
+    let mut m3u = File::create(output_root.join("playlist.m3u"))?;
+
+    writeln!(m3u, "#EXTM3U")?;
+
+
     for recording in &season.recordings {
         let context = RecordingIndexTemplate { season, recording };
 
@@ -237,6 +242,10 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path, _data_dir:
         std::fs::copy("static/ToS.txt", f.with_file_name("ToS.txt"))?;
 
         println!("Wrote recording index to {}", f.display());
+
+        let duration: f32 = recording.stereo_mix.media_info.duration.parse()?;
+        writeln!(m3u, "#EXTINF:{},Colin Bendres - {}", duration.round() as u32, recording.title)?;
+        writeln!(m3u, "https://ipfs.io/ipns/mm.em32.net/{}/{}", recording.data_folder, recording.stereo_mix.vorbis.replace(' ', "%20"))?;
     }
 
     Ok(())

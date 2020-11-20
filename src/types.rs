@@ -168,7 +168,7 @@ pub struct Track {
     ondisk_root: PathBuf,
 
     /// Technical info about this track
-    media_info: MediaInfo,
+    pub media_info: MediaInfo,
 }
 
 impl Track {

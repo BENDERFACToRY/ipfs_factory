@@ -1,0 +1,45 @@
+dashboard: 'Benderfactory Dashboard'
+panel_groups:
+  - group: 'Nginx Stats'
+    panels:
+      - type: line-chart
+        title: 'HTTP req/sec'
+        y_label: 'req/sec'
+        y_axis:
+          format: number
+          precision: 0
+        metrics:
+          - id: http_requests_rate
+            query_range: 'rate(nginx_http_requests_total[60s])'
+            label: 'HTTP Requests per second'
+            unit: 'count'
+  - group: 'Node stats'
+    panels:
+      - type: 'line-chart'
+        title: 'Disk IO bytes per second'
+        y_label: 'bps'
+        y_axis:
+          format: "bytes"
+        metrics:
+          - id: "disk_io_bytes_read"
+            query_range: 'rate(node_disk_read_bytes_total[60s])'
+            label: '{{device}} read bps'
+            unit: 'bps'
+          - id: "disk_io_bytes_write"
+            query_range: 'rate(node_disk_written_bytes_total[60s])'
+            label: '{{device}} write bps'
+            unit: 'bps'
+      - type: 'line-chart'
+        title: "Network IO"
+        y_label: 'bps'
+        y_axis:
+          format: "bytes"
+        metrics:
+          - id: "network_io_bytes_write"
+            query_range: 'rate(node_network_transmit_bytes_total[60s])'
+            label: '{{device}} sent bps'
+            unit: 'bps'
+          - id: "network_io_bytes_read"
+            query_range: 'rate(node_network_receive_bytes_total[60s])'
+            label: '{{device}} recv bps'
+            unit: 'bps'

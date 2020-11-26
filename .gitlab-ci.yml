@@ -1,0 +1,30 @@
+test:cargo:
+  stage: test
+  tags:
+    - ipfs
+    - linux
+    - bigbox
+  script:
+    - rustc --version && cargo --version  # Print version info for debugging
+    - cargo test
+
+deploy:
+  stage: deploy
+  tags:
+    - ipfs
+    - linux
+    - bigbox
+  artifacts:
+    reports:
+      dotenv: deploy.env
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: $DYNAMIC_ENVIRONMENT_URL
+
+  script:
+    - LATEST=$(ipfs resolve /ipns/mm.em32.net)
+    - ipfs get $LATEST/metadata.json
+    - env RUST_BACKTRACE=1 cargo run -- -i data/_Season02.json -o deploy_output -m metadata.json
+    - env RUST_BACKTRACE=1 cargo run -- --patch --hash=$LATEST -o deploy_output/ | tee patch.log
+    - NEW=$(cat patch.log |tail -1)
+    - printf "DYNAMIC_ENVIRONMENT_URL=https://ipfs.io/ipfs/${NEW}" > deploy.env

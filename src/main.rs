@@ -90,6 +90,7 @@ fn main() -> Result<(), anyhow::Error> {
             "https://{}.ipfs.dweb.link",
             b32.to_string_of_base(multibase::Base::Base32Lower).unwrap()
         );
+        println!("{}", new_cid);
 
         return Ok(());
     }

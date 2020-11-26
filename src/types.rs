@@ -1,6 +1,6 @@
 use std::path::{Path, PathBuf};
 
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use crate::MediaInfo;
 
@@ -13,6 +13,7 @@ pub(crate) struct SeasonInner {
     pub recordings: Vec<String>,
 }
 
+#[derive(Serialize, Deserialize)]
 pub struct Season {
     pub title: String,
     pub recordings: Vec<Recording>,
@@ -63,7 +64,7 @@ pub(crate) struct RecordingInner {
     pub tags: Vec<String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Recording {
     pub title: String,
     pub data_folder: String,
@@ -156,7 +157,7 @@ pub(crate) struct TrackInner {
     pub patch_notes: Option<String>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Track {
     pub id: u8,
     pub name: String,
@@ -169,10 +170,18 @@ pub struct Track {
 
     /// Technical info about this track
     pub media_info: MediaInfo,
+
+    pub flac_bytes: Option<u64>,
+    pub ogg_bytes: Option<u64>,
 }
 
 impl Track {
     pub(crate) fn from_inner(inner: TrackInner, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
+        let flac_bytes = std::fs::metadata(ondisk_root.join(&inner.flac)).ok()
+                                           .map(|md| md.len());
+        let ogg_bytes = std::fs::metadata(ondisk_root.join(&inner.vorbis)).ok()
+                                           .map(|md| md.len());
+
         Ok(Track {
             media_info: MediaInfo::new(ondisk_root.join(&inner.flac))?,
             id: inner.id,
@@ -181,6 +190,8 @@ impl Track {
             vorbis: inner.vorbis,
             patch_notes: inner.patch_notes,
             ondisk_root: ondisk_root.to_owned(),
+            flac_bytes,
+            ogg_bytes,
         })
     }
 
@@ -192,27 +203,27 @@ impl Track {
     }
 
     pub fn flac_size_str(&self) -> String {
-        if let Ok(md) = std::fs::metadata(self.ondisk_root.join(&self.flac)) {
-            format!("{}MB", md.len() / 1024 / 1024)
+        if let Some(bytes) = self.flac_bytes {
+            format!("{}MB", bytes / 1024 / 1024)
         } else {
             format!("unknown")
         }
     }
 
     pub fn flac_size_bytes(&self) -> u64 {
-        std::fs::metadata(self.ondisk_root.join(&self.flac)).unwrap().len()
+        *self.flac_bytes.as_ref().unwrap()
     }
 
     pub fn ogg_size_str(&self) -> String {
-        if let Ok(md) = std::fs::metadata(self.ondisk_root.join(&self.vorbis)) {
-            format!("{}MB", md.len() / 1024 / 1024)
+        if let Some(bytes) = self.ogg_bytes {
+            format!("{}MB", bytes / 1024 / 1024)
         } else {
             format!("unknown")
         }
     }
 
     pub fn ogg_size_bytes(&self) -> u64 {
-        std::fs::metadata(self.ondisk_root.join(&self.vorbis)).unwrap().len()
+        *self.ogg_bytes.as_ref().unwrap()
     }
 
     pub fn patch_notes(&self) -> &str {

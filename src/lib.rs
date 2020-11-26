@@ -9,7 +9,7 @@ use std::{
 
 use anyhow::bail;
 use colored::Colorize;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use types::{Recording, RecordingInner, Season};
 use valico::json_schema;
@@ -97,7 +97,7 @@ impl AudioFile {
 //     #[serde(rename = "Duration")]
 //     pub duration: String
 // }
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MediaInfo {
     #[serde(rename = "@type")]
     pub t: String,
@@ -198,7 +198,7 @@ pub struct RecordingIndexTemplate<'a> {
 
 // handlebars_helper!(filename: |v: u32| f.filename());
 
-pub fn write_season_index(season: &Season, output_root: &Path, _data_dir: &Path) -> Result<(), anyhow::Error> {
+pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), anyhow::Error> {
     let mut tag_set = HashSet::new();
     for rec in &season.recordings {
         for tag in &rec.tags {
@@ -221,21 +221,22 @@ pub fn write_season_index(season: &Season, output_root: &Path, _data_dir: &Path)
 
     std::fs::copy("static/style.css", f.with_file_name("style.css"))?;
     std::fs::copy("static/ToS.txt", f.with_file_name("ToS.txt"))?;
+    std::fs::copy("static/yt.png", f.with_file_name("yt.png"))?;
 
     println!("Write season index to {}", f.display());
 
     Ok(())
 }
 
-pub fn write_all_recording_index(season: &Season, output_root: &Path, _data_dir: &Path) -> Result<(), anyhow::Error> {
+pub fn write_all_recording_index(season: &Season, output_root: &Path) -> Result<(), anyhow::Error> {
     let mut m3u = File::create(output_root.join("playlist.m3u"))?;
 
     writeln!(m3u, "#EXTM3U")?;
 
-
     for recording in &season.recordings {
         let context = RecordingIndexTemplate { season, recording };
 
+        std::fs::create_dir_all(output_root.join(&recording.data_folder))?;
         let f = output_root.join(&recording.data_folder).join("index.html");
         let mut output = File::create(&f)?;
 

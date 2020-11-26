@@ -213,6 +213,7 @@ pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), any
 
     let context = SeasonIndexTemplate { season, tag_list };
 
+    std::fs::create_dir_all(output_root)?;
     let f = output_root.join("index.html");
     let mut output = File::create(&f)?;
 

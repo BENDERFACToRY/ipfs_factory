@@ -222,7 +222,6 @@ pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), any
 
     std::fs::copy("static/style.css", f.with_file_name("style.css"))?;
     std::fs::copy("static/ToS.txt", f.with_file_name("ToS.txt"))?;
-    std::fs::copy("static/yt.png", f.with_file_name("yt.png"))?;
 
     println!("Write season index to {}", f.display());
 

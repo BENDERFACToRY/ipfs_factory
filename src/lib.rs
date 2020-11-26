@@ -164,7 +164,7 @@ use askama::Template;
 #[template(path = "season_index.html")]
 pub struct SeasonIndexTemplate<'a> {
     season: &'a Season,
-    tag_set: HashSet<&'a str>,
+    tag_list: Vec<&'a str>,
 }
 
 #[derive(Template)]
@@ -207,7 +207,11 @@ pub fn write_season_index(season: &Season, output_root: &Path, _data_dir: &Path)
         // tag_set.extend(rec.tags.as_ref());
     }
 
-    let context = SeasonIndexTemplate { season, tag_set };
+    // convert tag_set to a vec and sort, so that the output is deterministic
+    let mut tag_list: Vec<_> = tag_set.into_iter().collect();
+    tag_list.sort();
+
+    let context = SeasonIndexTemplate { season, tag_list };
 
     let f = output_root.join("index.html");
     let mut output = File::create(&f)?;

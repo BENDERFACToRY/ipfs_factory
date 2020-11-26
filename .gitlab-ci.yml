@@ -8,7 +8,7 @@ test:cargo:
     - rustc --version && cargo --version  # Print version info for debugging
     - cargo test
 
-deploy:
+deploy_review:
   stage: deploy
   tags:
     - ipfs
@@ -20,6 +20,10 @@ deploy:
   environment:
     name: review/$CI_COMMIT_REF_SLUG
     url: $DYNAMIC_ENVIRONMENT_URL
+  only:
+    - branches
+  except:
+    - main 
 
   script:
     - LATEST=$(ipfs resolve /ipns/mm.em32.net)

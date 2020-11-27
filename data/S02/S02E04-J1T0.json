@@ -11,7 +11,7 @@
         "flac": "Colin Benders - S02E04 - Jam 1 - Take 0 - 17-201019_2114.flac",
         "vorbis": "ogg/Colin Benders - S02E04 - Jam 1 - Take 0 - 17-201019_2114.ogg"
     },
-    "bpm": 108,
+    "bpm": "108",
     "tags": [
         "arp"
     ],

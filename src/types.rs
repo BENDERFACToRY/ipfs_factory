@@ -59,7 +59,7 @@ pub(crate) struct RecordingInner {
     pub recorded_date: String,
     pub youtube_url: Option<String>,
     pub torrent: String,
-    pub bpm: Option<u8>,
+    pub bpm: Option<String>,
     pub tracks: Vec<TrackInner>,
     pub tags: Vec<String>,
 }
@@ -73,7 +73,7 @@ pub struct Recording {
     pub torrent: String,
     pub tracks: Vec<Track>,
     pub tags: Vec<String>,
-    pub bpm: Option<u8>,
+    pub bpm: Option<String>,
     pub youtube_url: Option<String>,
 
     ondisk_root: PathBuf,

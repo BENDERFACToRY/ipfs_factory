@@ -41,9 +41,8 @@
             "pattern": "^https?:\/\/"            
         },
         "bpm": {
-            "type": "number",
-            "minimum": 10,
-            "maximum": 300
+            "type": "string",
+            "pattern": "^[0-9/-]+$"
         },
         "torrent_url": {
             "type": "string",

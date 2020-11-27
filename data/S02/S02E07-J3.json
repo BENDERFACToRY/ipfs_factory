@@ -11,7 +11,7 @@
         "flac": "Colin Benders - S02E07 - Jam 3 - 17-201026_1855.flac",
         "vorbis": "ogg/Colin Benders - S02E07 - Jam 3 - 17-201026_1855.ogg"
     },
-    "bpm": 150,
+    "bpm": "150",
     "tags": [
         "techno",
         "floaty",

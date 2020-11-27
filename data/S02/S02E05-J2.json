@@ -11,7 +11,7 @@
         "flac": "Colin Benders - S02E05 - Jam 2 - 17-201020_1852.flac",
         "vorbis": "ogg/Colin Benders - S02E05 - Jam 2 - 17-201020_1852.ogg"
     },
-    "bpm": 105,
+    "bpm": "105",
     "tags": [
         "arp"
     ],

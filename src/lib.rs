@@ -23,7 +23,7 @@ pub fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow:
 
     if let Value::Object(map) = &json {
         if let Some(Value::String(schema)) = map.get("$schema") {
-            if schema.starts_with("./") {
+            if schema.starts_with("./") || schema.starts_with("../") {
                 // local file, fine it relative to json_path
                 let schema_path = json_path.parent().unwrap().join(schema);
                 let schema_file = File::open(schema_path)?;

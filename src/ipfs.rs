@@ -89,7 +89,7 @@ fn ipfs_add<P: AsRef<Path>>(path: P) -> anyhow::Result<cid::Cid> {
 
 pub fn patch_root_object<P: AsRef<Path>>(root_hash: &cid::Cid, root_dir: P) -> anyhow::Result<cid::Cid> {
     let root_dir: &Path = root_dir.as_ref();
-    let patchable = vec!["ToS.txt", "index.html", "style.css"];
+    let patchable = vec!["ToS.txt", "index.html", "style.css", "metadata.json"];
     let mut root_obj = IPFSObject::get(root_hash)?;
 
     let links = root_obj.links.clone();

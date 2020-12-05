@@ -168,6 +168,7 @@ use askama::Template;
 #[derive(Template)]
 #[template(path = "season_index.html")]
 pub struct SeasonIndexTemplate<'a> {
+    gitlab_review: String,
     season: &'a Season,
     tag_list: Vec<&'a str>,
 }
@@ -175,6 +176,7 @@ pub struct SeasonIndexTemplate<'a> {
 #[derive(Template)]
 #[template(path = "recording_index.html")]
 pub struct RecordingIndexTemplate<'a> {
+    gitlab_review: String,
     season: &'a Season,
     recording: &'a Recording,
 }
@@ -203,6 +205,15 @@ pub struct RecordingIndexTemplate<'a> {
 
 // handlebars_helper!(filename: |v: u32| f.filename());
 
+fn get_gitlab_review_string() -> String {
+
+    if let Ok(mr) = std::env::var("CI_MERGE_REQUEST_IID") {
+        format!(r#"<script defer data-project-id="22680986" data-project-path="eminence/benderfactory" data-merge-request-id="{}" data-mr-url="https://gitlab.com" id="review-app-toolbar-script" src="https://gitlab.com/assets/webpack/visual_review_toolbar.js"></script>"#, mr)
+    } else {
+        "".to_string()
+    }
+}
+
 pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), anyhow::Error> {
     let mut tag_set = HashSet::new();
     for rec in &season.recordings {
@@ -216,7 +227,7 @@ pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), any
     let mut tag_list: Vec<_> = tag_set.into_iter().collect();
     tag_list.sort();
 
-    let context = SeasonIndexTemplate { season, tag_list };
+    let context = SeasonIndexTemplate { season, tag_list, gitlab_review: get_gitlab_review_string() };
 
     std::fs::create_dir_all(output_root)?;
     let f = output_root.join("index.html");
@@ -239,7 +250,7 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path) -> Result<
     writeln!(m3u, "#EXTM3U")?;
 
     for recording in &season.recordings {
-        let context = RecordingIndexTemplate { season, recording };
+        let context = RecordingIndexTemplate { season, recording, gitlab_review: get_gitlab_review_string() };
 
         std::fs::create_dir_all(output_root.join(&recording.data_folder))?;
         let f = output_root.join(&recording.data_folder).join("index.html");

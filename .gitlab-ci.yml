@@ -1,4 +1,4 @@
-test:cargo:
+.test:cargo:
   stage: test
   cache:
     key: "${CI_COMMIT_REF_SLUG}-${CI_RUNNER_ID}"
@@ -29,11 +29,10 @@ deploy_review:
     name: review/$CI_COMMIT_REF_SLUG
     url: $DYNAMIC_ENVIRONMENT_URL
   only:
-    - branches
-  except:
-    - main 
+    - merge_requests
 
   script:
+    - printenv
     - LATEST=$(ipfs resolve /ipns/mm.em32.net)
     - ipfs get $LATEST/metadata.json
     - env RUST_BACKTRACE=1 cargo run -- -i data/_Season02.json -o deploy_output -m metadata.json

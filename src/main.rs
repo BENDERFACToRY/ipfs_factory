@@ -111,7 +111,7 @@ fn main() -> Result<(), anyhow::Error> {
     if matches.is_present("convert") {
         // convert mode needs access to the latest data, we can't run this from metadata
         let data_dir_path = Path::new(matches.value_of("data-dir").expect("Missing --data argument"));
-        let season = Season::load(season_json_path, data_dir_path)?;
+        let season = Season::load(season_json_path, Some(data_dir_path), None)?;
 
         cb_processor::convert_all(&season)?;
 
@@ -119,11 +119,13 @@ fn main() -> Result<(), anyhow::Error> {
     }
 
     let season: Season = if let Some(data_dir_path) = matches.value_of("data-dir") {
-        Season::load(season_json_path, Path::new(data_dir_path))?
+        Season::load(season_json_path, Some(Path::new(data_dir_path)), None)?
     } else {
         let md_file = matches.value_of("metadata").expect("Missing --data or --metadata argment");
         let f = File::open(md_file)?;
-        serde_json::from_reader(f)?
+        let cached_season: Season = serde_json::from_reader(f)?;
+
+        Season::load(season_json_path, None, Some(&cached_season))?
     };
 
     // Output dir for html and stuff (should probably the same as the --data dir)

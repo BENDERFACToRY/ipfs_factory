@@ -18,11 +18,11 @@ pub struct Season {
     pub title: String,
     pub recordings: Vec<Recording>,
 
-    pub(crate) ondisk_root: PathBuf,
+    //pub(crate) ondisk_root: PathBuf,
 }
 
 impl Season {
-    pub fn load<P: AsRef<Path>>(json: P, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
+    pub fn load<P: AsRef<Path>>(json: P, ondisk_root: Option<&Path>, cache: Option<&Season>) -> Result<Self, anyhow::Error> {
         let json = json.as_ref();
         let json_root = json.parent().unwrap();
 
@@ -31,19 +31,24 @@ impl Season {
 
         let mut recordings = Vec::new();
 
-        for rec_path in &inner.recordings {
-            let recording = Recording::load(&json_root.join(rec_path), ondisk_root)?;
-
-            // let recording = crate::get_validated_json()?;
-            // let recording: Recording = serde_json::from_value(recording)?;
-
-            recordings.push(recording);
+        if let Some(cache) = cache {
+            for (rec_path, cache) in inner.recordings.iter().zip(cache.recordings.iter()) {
+                let recording = Recording::load(&json_root.join(rec_path), ondisk_root, Some(cache))?;        
+                recordings.push(recording);
+            }
+        } else {
+            for rec_path in &inner.recordings {
+                let recording = Recording::load(&json_root.join(rec_path), ondisk_root, None)?;
+                recordings.push(recording);
+            }
+    
         }
+
 
         Ok(Season {
             title: inner.title,
             recordings,
-            ondisk_root: ondisk_root.to_owned(),
+            //ondisk_root: ondisk_root.to_owned(),
         })
     }
 }
@@ -76,36 +81,55 @@ pub struct Recording {
     pub bpm: Option<String>,
     pub youtube_url: Option<String>,
 
-    ondisk_root: PathBuf,
+    //ondisk_root: PathBuf,
 }
 impl Recording {
     /// Load info about a recording, given a path to its json file
-    pub fn load<P: AsRef<Path>>(json: P, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
+    pub fn load<P: AsRef<Path>>(json: P, ondisk_root: Option<&Path>, cache: Option<&Recording>) -> Result<Self, anyhow::Error> {
         let json = json.as_ref();
         let _json_root = json.parent().unwrap();
 
         let inner = crate::get_validated_json(json)?;
         let inner: RecordingInner = serde_json::from_value(inner)?;
 
-        let ondisk_root = ondisk_root.join(&inner.data_folder);
+        let ondisk_root = ondisk_root.map(|p| p.join(&inner.data_folder));
 
-        let tracks = inner
+        let tracks = if let Some(cache) = cache {
+            // gotta find the corresponding track from the cache
+            inner
             .tracks
             .into_iter()
-            .map(|tr| Track::from_inner(tr, &ondisk_root).unwrap())
-            .collect();
+            .map(|tr| {
+                let tr_id = tr.id;
+                Track::from_inner(tr, ondisk_root.as_deref(), cache.tracks.iter().find(|t| t.id == tr_id)).unwrap()
+            })
+            .collect()
+        } else {
+            inner
+            .tracks
+            .into_iter()
+            .map(|tr| Track::from_inner(tr, ondisk_root.as_deref(), None).unwrap())
+            .collect()
+        };
+        // let tracks = inner
+        //     .tracks
+        //     .into_iter()
+        //     .map(|tr| Track::from_inner(tr, &ondisk_root).unwrap())
+        //     .collect();
+
+        let stereo_mix = Track::from_inner(inner.stereo_mix, ondisk_root.as_deref(), cache.as_ref().map(|c| &c.stereo_mix))?;
 
         Ok(Recording {
             title: inner.title,
             data_folder: inner.data_folder,
-            stereo_mix: Track::from_inner(inner.stereo_mix, &ondisk_root)?,
+            stereo_mix,
             recorded_date: inner.recorded_date,
             youtube_url: inner.youtube_url,
             torrent: inner.torrent,
             bpm: inner.bpm,
             tracks,
             tags: inner.tags,
-            ondisk_root: ondisk_root.to_owned(),
+            //ondisk_root: ondisk_root.to_owned(),
         })
     }
     pub fn format_info(&self) -> String {
@@ -166,64 +190,65 @@ pub struct Track {
     pub patch_notes: Option<String>,
 
     /// Folder on the current machine can this track be found
-    ondisk_root: PathBuf,
+    ondisk_root: Option<PathBuf>,
 
     /// Technical info about this track
     pub media_info: MediaInfo,
 
-    pub flac_bytes: Option<u64>,
-    pub ogg_bytes: Option<u64>,
+    pub flac_bytes: u64,
+    pub ogg_bytes: u64,
 }
 
 impl Track {
-    pub(crate) fn from_inner(inner: TrackInner, ondisk_root: &Path) -> Result<Self, anyhow::Error> {
-        let flac_bytes = std::fs::metadata(ondisk_root.join(&inner.flac)).ok()
-                                           .map(|md| md.len());
-        let ogg_bytes = std::fs::metadata(ondisk_root.join(&inner.vorbis)).ok()
-                                           .map(|md| md.len());
+    pub(crate) fn from_inner(inner: TrackInner, ondisk_root: Option<&Path>, cache: Option<&Track>) -> Result<Self, anyhow::Error> {
+        let flac_bytes = ondisk_root
+            .and_then(|p| std::fs::metadata(p.join(&inner.flac)).ok())
+            .map(|md| md.len())
+            .unwrap_or_else(|| cache.map(|c| c.flac_bytes).unwrap());
+
+        let ogg_bytes = ondisk_root
+            .and_then(|p| std::fs::metadata(p.join(&inner.vorbis)).ok())
+            .map(|md| md.len())
+            .unwrap_or_else(|| cache.map(|c| c.ogg_bytes).unwrap());
+
+        let media_info: MediaInfo = ondisk_root
+            .map(|p| MediaInfo::new(p.join(&inner.flac)).unwrap())
+            .unwrap_or_else(|| cache.map(|c| c.media_info.clone()).unwrap());
 
         Ok(Track {
-            media_info: MediaInfo::new(ondisk_root.join(&inner.flac))?,
+            media_info,
             id: inner.id,
             name: inner.name,
             flac: inner.flac,
             vorbis: inner.vorbis,
             patch_notes: inner.patch_notes,
-            ondisk_root: ondisk_root.to_owned(),
+            ondisk_root: ondisk_root.map(Path::to_owned),
             flac_bytes,
             ogg_bytes,
         })
     }
 
-    pub fn flac_ondisk(&self) -> PathBuf {
-        self.ondisk_root.join(&self.flac)
+    pub fn flac_ondisk(&self) -> Option<PathBuf> {
+        self.ondisk_root.as_ref().map(|p| p.join(&self.flac))
     }
-    pub fn ogg_ondisk(&self) -> PathBuf {
-        self.ondisk_root.join(&self.vorbis)
+    pub fn ogg_ondisk(&self) -> Option<PathBuf> {
+        self.ondisk_root.as_ref().map(|p| p.join(&self.vorbis))
     }
 
     pub fn flac_size_str(&self) -> String {
-        if let Some(bytes) = self.flac_bytes {
-            format!("{}MB", bytes / 1024 / 1024)
-        } else {
-            format!("unknown")
-        }
+        format!("{}MB", self.flac_bytes / 1024 / 1024)
     }
 
     pub fn flac_size_bytes(&self) -> u64 {
-        *self.flac_bytes.as_ref().unwrap()
+        self.flac_bytes
     }
 
     pub fn ogg_size_str(&self) -> String {
-        if let Some(bytes) = self.ogg_bytes {
-            format!("{}MB", bytes / 1024 / 1024)
-        } else {
-            format!("unknown")
-        }
+        format!("{}MB", self.ogg_bytes / 1024 / 1024)
     }
 
     pub fn ogg_size_bytes(&self) -> u64 {
-        *self.ogg_bytes.as_ref().unwrap()
+        self.ogg_bytes
     }
 
     pub fn patch_notes(&self) -> &str {

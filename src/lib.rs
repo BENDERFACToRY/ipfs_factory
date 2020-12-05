@@ -47,13 +47,18 @@ pub fn get_validated_json(json_path: &Path) -> Result<serde_json::Value, anyhow:
 
 pub fn convert_all(season: &Season) -> Result<(), anyhow::Error> {
     for rec in &season.recordings {
-        if !rec.stereo_mix.ogg_ondisk().exists() {
-            convert_to_vorbis(&rec.stereo_mix.flac_ondisk(), &rec.stereo_mix.ogg_ondisk())?;
+        let p = rec.stereo_mix.ogg_ondisk();
+        let p = p.as_ref().unwrap();
+        if !p.exists() {
+            convert_to_vorbis(&rec.stereo_mix.flac_ondisk().as_ref().unwrap(), &p)?;    
         }
 
+
         for track in &rec.tracks {
-            if !track.ogg_ondisk().exists() {
-                convert_to_vorbis(&track.flac_ondisk(), &track.ogg_ondisk())?;
+            let p = track.ogg_ondisk();
+            let p = p.as_ref().unwrap();
+            if !p.exists() {
+                convert_to_vorbis(&track.flac_ondisk().as_ref().unwrap(), &p)?;
             }
         }
     }

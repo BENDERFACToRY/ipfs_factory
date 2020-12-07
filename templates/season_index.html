@@ -5,6 +5,7 @@
     {{ gitlab_review|safe }}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/all.css" />
     <style>
         #filtercontrol {
             border-bottom: 2px solid darkblue;
@@ -33,7 +34,105 @@
             margin: 5px;
         }
 
+        div#player {
+            height: 70px;
+            padding-top: 10px;
+            margin-top: 10px;
+            border-top: 3px double brown;
+        }
 
+        .controls {
+            width: 100%;
+            height: 2em;
+        }
+
+        .controls>* {
+            float: left;
+            width: 3.90625%;
+            height: 100%;
+            margin-left: 0.1953125%;
+            display: block;
+        }
+
+        .controls>#playstatus {
+            width: 10em;
+        }
+
+        .controls>*:first-child {
+            margin-left: 0;
+        }
+
+        .controls .progress {
+            cursor: pointer;
+            width: 55.390625%;
+        }
+
+        .controls button {
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .controls progress {
+            display: block;
+            width: 100%;
+            margin-top: 0.125rem;
+            border: none;
+            color: #0095dd;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .controls progress[data-state="fake"] {
+            background: #e6e6e6;
+            height: 65%;
+        }
+
+        .controls progress span {
+            width: 0%;
+            height: 100%;
+            display: inline-block;
+            background-color: #2a84cd;
+        }
+
+        .controls button:hover,
+        .controls button:focus {
+            opacity: 0.5;
+        }
+
+        .controls progress::-moz-progress-bar {
+            background-color: #0095dd;
+        }
+
+        .controls progress::-webkit-progress-value {
+            background-color: #0095dd;
+        }
+
+        #player #playtitle {
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .controls button[data-state="play"] i.fa-play-custom:before {
+            content: "\f04b";
+        }
+
+        .controls button[data-state="pause"] i.fa-play-custom:before {
+            content: "\f04c";
+        }
+
+        .controls button[data-state="mute"] i.fa-mute-custom:before {
+            content: "\f026";
+        }
+
+        .controls button[data-state="unmute"] i.fa-mute-custom:before {
+            content: "\f6a9";
+        }
     </style>
 
     <script>
@@ -89,6 +188,138 @@
             });
 
         }
+
+        function setup_player_controls() {
+            const progressElem = document.getElementById("progress");
+            const audioElem = document.querySelector("div#player audio");
+            const playPauseElem = document.getElementById("playpause");
+            const stopElem = document.getElementById("stop");
+            const muteElem = document.getElementById("mute");
+            const volUpElem = document.getElementById("volinc");
+            const VolDownElem = document.getElementById("voldec");
+
+            // A lot of this code was copied/adapted from:
+            // https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Video_player_styling_basics
+            var supportsProgress = (document.createElement('progress').max !== undefined);
+            if (!supportsProgress) progressElem.setAttribute('data-state', 'fake');
+
+
+            var changeButtonState = function (type) {
+                // Play/Pause button
+                if (type == 'playpause') {
+                    if (audioElem.paused || audioElem.ended) {
+                        playPauseElem.setAttribute('data-state', 'play');
+                    }
+                    else {
+                        playPauseElem.setAttribute('data-state', 'pause');
+                    }
+                }
+                // Mute button
+                else if (type == 'mute') {
+                    muteElem.setAttribute('data-state', audioElem.muted ? 'unmute' : 'mute');
+                }
+            }
+
+            audioElem.addEventListener('loadedmetadata', function (event) {
+                console.log(event);
+                const progressElem = document.getElementById("progress");
+                progressElem.max = event.target.duration;
+            });
+            audioElem.addEventListener('stalled', function () {
+                const statusElem = document.getElementById("playstatus");
+                statusElem.innerText = "Loading...";
+            });
+            audioElem.addEventListener('waiting', function () {
+                const statusElem = document.getElementById("playstatus");
+                statusElem.innerText = "Loading...";
+            });
+            audioElem.addEventListener('play', function () {
+                changeButtonState('playpause');
+            }, false);
+            audioElem.addEventListener('pause', function () {
+                changeButtonState('playpause');
+            }, false);
+            audioElem.addEventListener('timeupdate', function () {
+                const statusElem = document.getElementById("playstatus");
+                if (audioElem.duration > 0) {
+                    const cur = audioElem.currentTime;
+                    const max = audioElem.duration;
+                    progressElem.max = max;
+                    progressElem.value = cur;
+
+                    const cur_min = (cur / 60).toFixed(0);
+                    const cur_sec = (cur % 60).toFixed(1);
+                    const max_min = (max / 60).toFixed(0);
+                    const max_sec = (max % 60).toFixed(0);
+
+                    const a = (cur_min < 10 ? "0" : "") + cur_min;
+                    const b = (cur_sec < 10 ? "0" : "") + cur_sec;
+                    const c = (max_min < 10 ? "0" : "") + max_min;
+                    const d = (max_sec < 10 ? "0" : "") + max_sec;
+
+                    statusElem.innerHTML = a + ":" + b + " / " + c + ":" + d;
+                }
+
+
+            });
+            stopElem.addEventListener('click', function (e) {
+                audioElem.pause();
+                audioElem.currentTime = 0;
+                progressElem.value = 0;
+                // Update the play/pause button's 'data-state' which allows the correct button image to be set via CSS
+                changeButtonState('playpause');
+            });
+            muteElem.addEventListener('click', function (e) {
+                audioElem.muted = !audioElem.muted;
+                changeButtonState('mute');
+            });
+
+            playPauseElem.addEventListener('click', function (e) {
+                if (audioElem.paused || audioElem.ended) audioElem.play();
+                else audioElem.pause();
+            });
+
+            progressElem.addEventListener('click', function (e) {
+                var pos = (e.pageX - (this.offsetLeft + this.offsetParent.offsetLeft)) / this.offsetWidth;
+                audioElem.currentTime = pos * audioElem.duration;
+            });
+
+            var checkVolume = function (dir) {
+                if (dir) {
+                    var currentVolume = Math.floor(audioElem.volume * 10) / 10;
+                    if (dir === '+') {
+                        if (currentVolume < 1) audioElem.volume += 0.1;
+                    }
+                    else if (dir === '-') {
+                        if (currentVolume > 0) audioElem.volume -= 0.1;
+                    }
+                    // If the volume has been turned off, also set it as muted
+                    // Note: can only do this with the custom control set as when the 'volumechange' event is raised, there is no way to know if it was via a volume or a mute change
+                    if (currentVolume <= 0) audioElem.muted = true;
+                    else audioElem.muted = false;
+                }
+                changeButtonState('mute');
+            }
+            volUpElem.addEventListener('click', function () {
+                checkVolume('+');
+            });
+            VolDownElem.addEventListener('click', function () {
+                checkVolume('-');
+            })
+
+        }
+
+
+        function preview(url, title) {
+            const audioElem = document.querySelector("div#player audio");
+            const statusElem = document.getElementById("playstatus");
+            const titleElem = document.getElementById("playtitle");
+            statusElem.innerText = "Loading...";
+            audioElem.src = url;
+            audioElem.load();
+            audioElem.play();
+            playtitle.innerText = title;
+        }
     </script>
 </head>
 
@@ -96,70 +327,93 @@
 
     <div id="container">
 
-        <h2>Modular Mayhem -- {{ season.title }}</h2>
+        <div id="content">
+            <div id="inner">
 
-        <p>
-            On this page you'll find all of the recordings and stems for {{ season.title }} of Modular Mayhem!
-            You can preview the stereo mix, or explore and download the individual stems!
-        </p>
+                <h2>Modular Mayhem -- {{ season.title }}</h2>
 
-        <div id="filtercontrol">
-            Click to filter (contrl+click to select multiple):
-            {% for tag in tag_list %}
-            <span class="tag" data-tag="{{tag}}">{{tag}}</span>
-            {% endfor %}
-        </div>
+                <p>
+                    On this page you'll find all of the recordings and stems for {{ season.title }} of Modular Mayhem!
+                    You can preview the stereo mix, or explore and download the individual stems!
+                </p>
 
-
-        <table id="reclist">
-            <!-- <div id="reclist"> -->
-            {% for recording in season.recordings %}
-            <tr id="rec">
-                <!-- <div id="rec"> -->
-                <td>
-                    <a href="{{recording.data_folder}}">{{recording.title}}</a> ({{recording.recorded_date}})
-                </td>
-                <td>
-                    <audio controls src="{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}"
-                        preload="none"></audio>
-                </td>
-                <td>
-                    {% if recording.bpm.is_some() %}
-                    {{ recording.bpm.as_ref().unwrap() }} bpm
-                    {% endif %}
-                </td>
-                <td>
-                    <!-- technical details of the recording here-->
-                    {{recording.tracks.len()}} tracks
-                </td>
-                <td>
-                    {{recording.duration()}}
-                </td>
-                <td>
-                    {{recording.format_info()}}
-                </td>
-                <td>
-                    {% for tag in recording.tags %}
+                <div id="filtercontrol">
+                    Click to filter (contrl+click to select multiple):
+                    {% for tag in tag_list %}
                     <span class="tag" data-tag="{{tag}}">{{tag}}</span>
                     {% endfor %}
-                </td>
-            </tr> <!-- </div> -->
-            {% endfor %}
+                </div>
 
-        </table> <!-- </div> -->
 
-        <div id="ipfs" style="display: none">
-            If you have your own IPFS node, you can download this entire season by running:
+                <table id="reclist">
+                    <!-- <div id="reclist"> -->
+                    {% for recording in season.recordings %}
+                    <tr id="rec">
+                        <!-- <div id="rec"> -->
+                        <td>
+                            <a href="{{recording.data_folder}}">{{recording.title}}</a> ({{recording.recorded_date}})
+                        </td>
+                        <td>
+                            <button
+                                onclick="preview('{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}', '{{recording.title}}');">Play</button>
+                        </td>
+                        <td>
+                            {% if recording.bpm.is_some() %}
+                            {{ recording.bpm.as_ref().unwrap() }} bpm
+                            {% endif %}
+                        </td>
+                        <td>
+                            <!-- technical details of the recording here-->
+                            {{recording.tracks.len()}} tracks
+                        </td>
+                        <td>
+                            {{recording.duration()}}
+                        </td>
+                        <td>
+                            {{recording.format_info()}}
+                        </td>
+                        <td>
+                            {% for tag in recording.tags %}
+                            <span class="tag" data-tag="{{tag}}">{{tag}}</span>
+                            {% endfor %}
+                        </td>
+                    </tr> <!-- </div> -->
+                    {% endfor %}
 
-            <div id="download-command" class="pre">ipfs get hash</div>
+                </table> <!-- </div> -->
 
-            Consider pinning this hash to help make it available for other IPFS users!
+                <div id="ipfs" style="display: none">
+                    If you have your own IPFS node, you can download this entire season by running:
+
+                    <div id="download-command" class="pre">ipfs get hash</div>
+
+                    Consider pinning this hash to help make it available for other IPFS users!
+                </div>
+
+                <div id="tos">
+                    <strong style="text-align: center; display: block">
+                        Terms of Service: <a href="ToS.txt">must read before downloading</a>
+                    </strong>
+                </div>
+            </div>
         </div>
 
-        <div id="tos">
-            <strong style="text-align: center; display: block">
-                Terms of Service: <a href="ToS.txt">must read before downloading</a>
-            </strong>
+        <div id="player">
+            <audio></audio>
+            <div id="preview-controls" class="controls">
+                <button id="playpause" type="button" data-state="play"><i class="fas fa-play-custom"></i></button>
+                <button id="stop" type="button" data-state="stop"><i class="fas fa-stop"></i></button>
+                <div class="progress">
+                    <progress id="progress" value="0" min="0">
+                        <span id="progress-bar"></span>
+                    </progress>
+                </div>
+                <span id="playstatus"></span>
+                <button id="mute" type="button" data-state="mute"><i class="fas fa-mute-custom"></i></button>
+                <button id="volinc" type="button" data-state="volup"><i class="fas fa-volume-up"></i></button>
+                <button id="voldec" type="button" data-state="voldown"><i class="fas fa-volume-down"></i></button>
+            </div>
+            <div id="playtitle"></div>
         </div>
 
     </div>
@@ -174,6 +428,8 @@
             document.querySelector("div#ipfs #download-command").innerText = "ipfs get " + window.location.pathname;
             document.querySelector("div#ipfs").style.display = "";
         }
+
+        setup_player_controls();
     </script>
 </body>
 

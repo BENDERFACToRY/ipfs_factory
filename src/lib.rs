@@ -214,6 +214,28 @@ fn get_gitlab_review_string() -> String {
     }
 }
 
+fn copy_all_files<P: AsRef<Path>, T: AsRef<Path>>(from_dir: P, to_dir: T) -> Result<(), anyhow::Error> {
+
+    let from_dir = from_dir.as_ref();
+    let to_dir = to_dir.as_ref();
+    for file in from_dir.read_dir()? {
+        let file = file?;
+        let dst = to_dir.join(file.file_name());
+
+        if file.file_type()?.is_file() {
+            let src = file.path().canonicalize()?;
+            println!("{:?} --> {:?}", src, dst);
+            std::fs::copy(src, dst)?;
+        } else if file.file_type()?.is_dir() {
+            std::fs::create_dir_all(&dst)?;
+            copy_all_files(file.path(), &dst)?;
+        }
+    }
+
+    Ok(())
+
+}
+
 pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), anyhow::Error> {
     let mut tag_set = HashSet::new();
     for rec in &season.recordings {
@@ -236,8 +258,7 @@ pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), any
     let rendered: String = context.render()?;
     output.write_all(rendered.as_bytes())?;
 
-    std::fs::copy("static/style.css", f.with_file_name("style.css"))?;
-    std::fs::copy("static/ToS.txt", f.with_file_name("ToS.txt"))?;
+    copy_all_files("static/", &output_root)?;
 
     println!("Write season index to {}", f.display());
 

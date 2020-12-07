@@ -2,7 +2,7 @@ use anyhow::bail;
 use serde::Deserialize;
 use serde::Serialize;
 
-use std::convert::TryFrom;
+use std::{ffi::OsStr, convert::TryFrom};
 use std::str::FromStr;
 use std::{path::Path, process::Command};
 
@@ -68,13 +68,16 @@ impl IPFSObject {
     }
 }
 
-fn ipfs_add<P: AsRef<Path>>(path: P) -> anyhow::Result<cid::Cid> {
-    let output = Command::new("ipfs")
-        .arg("add")
+fn ipfs_add<P: AsRef<Path>>(path: P, is_folder: bool) -> anyhow::Result<cid::Cid> {
+    let mut cmd = Command::new("ipfs");
+    cmd.arg("add")
         .arg("--pin=false")
-        .arg("-q")
-        .arg(path.as_ref())
-        .output()?;
+        .arg("-Q")
+        .arg(path.as_ref());
+    if is_folder {
+        cmd.arg("-r");
+    }
+    let output = cmd.output()?;
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
@@ -87,31 +90,51 @@ fn ipfs_add<P: AsRef<Path>>(path: P) -> anyhow::Result<cid::Cid> {
     Ok(new_cid)
 }
 
+
 pub fn patch_root_object<P: AsRef<Path>>(root_hash: &cid::Cid, root_dir: P) -> anyhow::Result<cid::Cid> {
     let root_dir: &Path = root_dir.as_ref();
-    let patchable = vec!["ToS.txt", "index.html", "style.css", "metadata.json"];
+    // let patchable = vec!["ToS.txt", "index.html", "style.css", "metadata.json", "css", "webfonst"];
     let mut root_obj = IPFSObject::get(root_hash)?;
 
-    let links = root_obj.links.clone();
-
-    for link in links {
-        let local_link = root_dir.join(&link.name);
-
-        if local_link.exists() && local_link.is_file() && patchable.contains(&link.name.as_str()) {
-            let new_cid = ipfs_add(&local_link)?;
-            if new_cid != link.hash {
-                println!("Patching {} with {} ({})", link.name, local_link.display(), new_cid);
-                root_obj = root_obj.add_link(&link.name, &new_cid)?;
-            }
+    for local_link in root_dir.read_dir()? {
+        let local_link = local_link?;
+        let local_link_path = local_link.path();
+        if let Some(ext) = local_link_path.extension() {
+            if ext == "ogg" || ext == "flac" {
+                // we don't patch ogg/flac audio files
+                continue
+            };
         }
-        if local_link.exists() && local_link.is_dir() {
-            let new_cid = patch_root_object(&link.hash, &local_link)?;
-            if new_cid != link.hash {
-                root_obj = root_obj.add_link(&link.name, &new_cid)?;
+        // find the corresponding link in the IPFS structure (if it exists)
+        let maybe_link = root_obj.links.iter().find(|l| local_link.file_name() == AsRef::<OsStr>::as_ref(&l.name));
+
+        if local_link_path.is_file() {
+            let new_cid = ipfs_add(&local_link_path, false)?;
+            if let Some(link) = maybe_link {
+                if new_cid != link.hash {
+                    println!("Patching {} with {} ({})", link.name, local_link_path.display(), new_cid);
+                    root_obj = root_obj.add_link(&link.name, &new_cid)?;
+                }
             }
+        } else if local_link_path.is_dir() {
+            if let Some(link) = maybe_link {
+                // link already exists, so recurse
+                let new_cid = patch_root_object(&link.hash, &local_link_path)?;
+                if new_cid != link.hash {
+                    root_obj = root_obj.add_link(&link.name, &new_cid)?;
+                }
+            } else {
+                let new_cid = ipfs_add(&local_link_path, true)?;
+                let new_link_name = local_link.file_name();
+                root_obj = root_obj.add_link(&new_link_name.to_string_lossy(), &new_cid)?;
+                println!("Added new link to {:?} ({})", new_link_name, new_cid);
+            }
+            
         }
+
     }
 
+  
     Ok(root_obj.cid().clone())
 }
 

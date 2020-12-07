@@ -1,4 +1,3 @@
-
 # Welcome to the Bender Factory
 
 This repository contains tools and data to generate a community-maintained webpage for the
@@ -21,7 +20,7 @@ to gain access to the other channels.  Ping `@achin` in the `#dev` channel.
 We need help with the following things:
 
 * HTML design and development.
-* Make sure all the metadata for each recording and track is accurate.  For more on this, see the [data](https://github.com/eminence/benderfactory/tree/main/data) folder.
+* Make sure all the metadata for each recording and track is accurate.  For more on this, see the [data](https://gitlab.com/eminence/benderfactory/-/tree/main/data) folder.
 * If you have bandwidth and/or diskspace, consider helping to host the data. Ask
   in discord about how to do this.
 

@@ -310,7 +310,7 @@
         }
 
 
-        function preview(url, title) {
+        function preview(url, title, data_folder) {
             const audioElem = document.querySelector("div#player audio");
             const statusElem = document.getElementById("playstatus");
             const titleElem = document.getElementById("playtitle");
@@ -318,7 +318,7 @@
             audioElem.src = url;
             audioElem.load();
             audioElem.play();
-            playtitle.innerText = title;
+            titleElem.innerHTML = `<a href="${data_folder}">${title}</a>`;
         }
     </script>
 </head>
@@ -355,7 +355,7 @@
                         </td>
                         <td>
                             <button
-                                onclick="preview('{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}', '{{recording.title}}');">Play</button>
+                                onclick="preview('{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}', '{{recording.title}}', '{{recording.data_folder}}');">Play</button>
                         </td>
                         <td>
                             {% if recording.bpm.is_some() %}

@@ -19,6 +19,10 @@
         table#reclist tr td {
             border-bottom: 1px dotted darkblue;
         }
+        
+        table#reclist tr.selected td {
+            background-color: pink;
+        }
 
         div#reclist {
             display: flex;
@@ -322,6 +326,9 @@
             audioElem.load();
             audioElem.play();
             titleElem.innerHTML = `<a href="${data_folder}">${title}</a>`;
+
+            document.querySelectorAll("table#reclist tr").forEach((elem) => {elem.classList.remove("selected");})
+            trElem.classList.add("selected");
         }
     </script>
 </head>

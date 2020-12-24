@@ -310,7 +310,10 @@
         }
 
 
-        function preview(url, title, data_folder) {
+        function preview(data_folder) {
+            const trElem = document.querySelector(`tr#rec[data-recid="${data_folder}"]`);
+            const url = trElem.dataset.recmix;
+            const title = trElem.dataset.rectitle;
             const audioElem = document.querySelector("div#player audio");
             const statusElem = document.getElementById("playstatus");
             const titleElem = document.getElementById("playtitle");
@@ -348,14 +351,14 @@
                 <table id="reclist">
                     <!-- <div id="reclist"> -->
                     {% for recording in season.recordings %}
-                    <tr id="rec">
+                    <tr id="rec" data-recid="{{recording.data_folder}}" data-rectitle="{{recording.title}}" data-recmix="{{recording.data_folder}}//{{recording.stereo_mix.vorbis}}">
                         <!-- <div id="rec"> -->
                         <td>
                             <a href="{{recording.data_folder}}">{{recording.title}}</a> ({{recording.recorded_date}})
                         </td>
                         <td>
                             <button
-                                onclick="preview('{{recording.data_folder}}/{{recording.stereo_mix.vorbis}}', '{{recording.title}}', '{{recording.data_folder}}');">Play</button>
+                                onclick="preview('{{recording.data_folder}}');">Play</button>
                         </td>
                         <td>
                             {% if recording.bpm.is_some() %}

@@ -3,7 +3,7 @@
     "title": "S02E02 - Jam 1",
     "recorded_date": "2020/10/16",
     "data_folder": "S02E02-J1",
-    "youtube_url": "https://youtu.be/H9s1dwdfA9Y?list=PLBOwYevicX2A7mC2Y6yP7rKq0PIlYEJsQ",
+    "youtube_url": "https://youtu.be/H9s1dwdfA9Y?list=PLBOwYevicX2A7mC2Y6yP7rKq0PIlYEJsQ&t=1186",
     "torrent": "Colin Benders - S02E02 - Jam 1 (FLAC).torrent",
     "stereo_mix": {
         "id": 17,
@@ -11,6 +11,7 @@
         "flac": "Colin Benders - S02E02 - Jam 1 - 17-201016_1815.flac",
         "vorbis": "ogg/Colin Benders - S02E02 - Jam 1 - 17-201016_1815.ogg"
     },
+    "bpm": "105/150",
     "tags": [
         "arp"
     ],

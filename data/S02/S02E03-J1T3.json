@@ -18,13 +18,13 @@
     "tracks": [
         {
             "id": 2,
-            "name": "??",
+            "name": "Drums/Kick",
             "flac": "Colin Benders - S02E03 - Jam 1 - Take 3 - 02-201017_1802.flac",
             "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 3 - 02-201017_1802.ogg"
         },
         {
             "id": 3,
-            "name": "??",
+            "name": "Drums/Snare + Symbol",
             "flac": "Colin Benders - S02E03 - Jam 1 - Take 3 - 03-201017_1802.flac",
             "vorbis": "ogg/Colin Benders - S02E03 - Jam 1 - Take 3 - 03-201017_1802.ogg"
         },

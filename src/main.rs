@@ -29,7 +29,7 @@ fn main() -> Result<(), anyhow::Error> {
             Arg::with_name("validate")
             .long("validate")
             .takes_value(false)
-            .requires_all(&["input", "data-dir", "output"])
+            .requires_all(&["input", "data-dir"])
             .help("Validates the JSON schema and prints out a short summary of all known recordings and tracks")
         )
         .arg(

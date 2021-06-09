@@ -32,10 +32,14 @@ deploy_review:
     - merge_requests
 
   script:
-    - printenv
     - LATEST=$(ipfs resolve /ipns/mm.em32.net)
-    - ipfs get $LATEST/metadata.json
-    - env RUST_BACKTRACE=1 cargo run -- -i data/_Season02.json -o deploy_output -m metadata.json
+    - mkdir S01
+    - mkdir S02
+    - ipfs cat $LATEST/S01/metadata.json > S01/metadata.json
+    - ipfs cat $LATEST/S02/metadata.json > S02/metadata.json
+    - env RUST_BACKTRACE=1 cargo run -- -i data/_Season01.json -o deploy_output/S01 -m S01/metadata.json
+    - env RUST_BACKTRACE=1 cargo run -- -i data/_Season02.json -o deploy_output/S02 -m S02/metadata.json
     - env RUST_BACKTRACE=1 cargo run -- --patch --hash=$LATEST -o deploy_output/ | tee patch.log
     - NEW=$(cat patch.log |tail -1)
-    - printf "DYNAMIC_ENVIRONMENT_URL=https://ipfs.io/ipfs/${NEW}" > deploy.env
+    - DWEB=$(ipfs cid format -v1 $NEW -bbase32)
+    - printf "DYNAMIC_ENVIRONMENT_URL=https://${DWEB}.ipfs.dweb.link/" > deploy.env

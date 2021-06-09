@@ -1,0 +1,7 @@
+{
+    "$schema": "./schema/season.json",
+    "title": "Season 1",
+    "recordings": [
+        "S01/S01E16-J1.json"
+    ]
+}

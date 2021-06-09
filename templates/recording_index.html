@@ -160,9 +160,13 @@
                     <!-- <progress id="bar"></progress> -->
                 </div>
             </p>
+            {% match recording.torrent %}
+            {% when Some with (t) %}
             <p>
-                Download <a href="{{recording.torrent|safe}}">.torrent</a> with all flac files
+                Download <a href="{{t|safe}}">.torrent</a> with all flac files
             </p>
+            {% when None %}
+            {% endmatch %}
         </div>
 
 

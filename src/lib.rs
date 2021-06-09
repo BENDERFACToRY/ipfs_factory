@@ -331,17 +331,20 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
             println!("  {} Stereo mix", "OK".green());
         }
 
-        let torrent_file = data_dir.join(&recording.torrent);
-        if !torrent_file.exists() {
-            println!(
-                " {}: torrent file doesn't exist {}",
-                "ERROR".red(),
-                format!("{}", stereo_mix.display()).yellow()
-            );
-            errors += 1;
-        } else {
-            println!("  {} torrent file", "OK".green());
+        if let Some(torrent) = &recording.torrent {
+            let torrent_file = data_dir.join(torrent);
+            if !torrent_file.exists() {
+                println!(
+                    " {}: torrent file doesn't exist {}",
+                    "ERROR".red(),
+                    format!("{}", stereo_mix.display()).yellow()
+                );
+                errors += 1;
+            } else {
+                println!("  {} torrent file", "OK".green());
+            }
         }
+        
 
         println!("  Tracks for {}:", recording.title.cyan());
 

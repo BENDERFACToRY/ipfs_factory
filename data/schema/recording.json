@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "description": "Information about a single recording and each of its tracks",
     "type": "object",
     "required": [
@@ -29,7 +29,7 @@
         "recorded_date": {
             "type": "string",
             "description": "Date the track was recorded, in YYYY/MM/DD format",
-            "pattern": "^\\d\\d\\d\\d\/[01]\\d/[0123]\\d"
+            "pattern": "(^\\d\\d\\d\\d\/[01]\\d/[0123]\\d|unknown)"
         },
         "twitch_url": {
             "type": "string",

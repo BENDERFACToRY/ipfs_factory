@@ -209,7 +209,7 @@ impl Track {
         let ogg_bytes = ondisk_root
             .and_then(|p| std::fs::metadata(p.join(&inner.vorbis)).ok())
             .map(|md| md.len())
-            .unwrap_or_else(|| cache.map(|c| c.ogg_bytes).unwrap());
+            .unwrap_or_else(|| cache.map(|c| c.ogg_bytes).unwrap_or(0));
 
         let media_info: MediaInfo = ondisk_root
             .map(|p| MediaInfo::new(p.join(&inner.flac)).unwrap())

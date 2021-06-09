@@ -133,18 +133,18 @@ impl Recording {
         })
     }
     pub fn format_info(&self) -> String {
-        let sample_rate: f32 = self.tracks[0].media_info.sample_rate.parse().unwrap();
+        let sample_rate: f32 = self.stereo_mix.media_info.sample_rate.parse().unwrap();
 
         format!(
             "{}ch {:.1}kHz {}bit",
-            self.tracks[0].media_info.channels,
+            self.stereo_mix.media_info.channels,
             sample_rate / 1000.0,
-            self.tracks[0].media_info.bit_depth
+            self.stereo_mix.media_info.bit_depth
         )
     }
 
     pub fn duration(&self) -> String {
-        let sec: f32 = self.tracks[0].media_info.duration.parse().unwrap();
+        let sec: f32 = self.stereo_mix.media_info.duration.parse().unwrap();
         let sec = sec.floor() as u64;
         if sec <= 59 {
             format!("{}s", sec)

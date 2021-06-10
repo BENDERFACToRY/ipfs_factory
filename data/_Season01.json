@@ -2,6 +2,13 @@
     "$schema": "./schema/season.json",
     "title": "Season 1",
     "recordings": [
-        "S01/S01E16-J1.json"
+        "S01/S01E16-J1.json",
+        "S01/S01E16-J1.5.json",
+        "S01/S01E16-J2.json",
+        "S01/S01E16-J3.json",
+        "S01/S01E16-J4.json",
+        "S01/S01E16-J5.json",
+        "S01/S01E16-J6.json",
+        "S01/S01E16-J7.json"
     ]
 }

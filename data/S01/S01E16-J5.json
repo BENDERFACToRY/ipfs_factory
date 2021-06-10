@@ -1,13 +1,13 @@
 {
     "$schema": "../schema/recording.json",
-    "title": "S01E16 - Jam 1",
+    "title": "S01E16 - Jam 5",
     "recorded_date": "unknown",
-    "data_folder": "S01E16-J1",
+    "data_folder": "S01E16-J5",
     "stereo_mix": {
         "id": 17,
         "name": "Stereo mix",
-        "flac": "S01E16-J1_stereo.flac",
-        "vorbis": "ogg/S01E16-J1_stereo.ogg"
+        "flac": "S01E16-J5_stereo.flac",
+        "vorbis": "ogg/S01E16-J5_stereo.ogg"
     },
     "tags": [
         "tbd"

@@ -16,8 +16,8 @@ serde = { version = "1.0", features = ["derive"] }
 valico = "3.4.0"
 termcolor = "1.1.0"
 colored = "2.0.0"
-askama = "0.8"
-multihash = "0.11.0"
-cid = "0.5.1"
-multibase = "0.8"
-reqwest = { version = "0.10", features = ["blocking"] }
+askama = "0.10"
+multihash = "0.14"
+cid = "0.7"
+multibase = "0.9"
+reqwest = { version = "0.11", features = ["blocking"] }

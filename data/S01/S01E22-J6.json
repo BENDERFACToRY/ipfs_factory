@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E22 - Jam 6",
+    "recorded_date": "unknown",
+    "data_folder": "S01E22-J6",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E22-J6_stereo.flac",
+        "vorbis": "ogg/S01E22-J6_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

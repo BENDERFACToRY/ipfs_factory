@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E31 - Jam 4 Part 3",
+    "recorded_date": "unknown",
+    "data_folder": "S01E31-J4P3",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E31-J4P3_stereo.flac",
+        "vorbis": "ogg/S01E31-J4P3_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

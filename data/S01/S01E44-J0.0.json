@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E44 - Jam 0.0",
+    "recorded_date": "unknown",
+    "data_folder": "S01E44-J0.0",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E44-J0.0_stereo.flac",
+        "vorbis": "ogg/S01E44-J0.0_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

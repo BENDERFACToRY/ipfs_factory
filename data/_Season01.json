@@ -2,6 +2,22 @@
     "$schema": "./schema/season.json",
     "title": "Season 1",
     "recordings": [
+        "S01/S01E13-J1.json",
+        "S01/S01E13-J2.json",
+        "S01/S01E13-J3.json",
+        "S01/S01E13-J4.json",
+        "S01/S01E13-J5.json",
+        "S01/S01E13-J6.json",
+        "S01/S01E13-J7P1.json",
+        "S01/S01E13-J7P2.json",
+        "S01/S01E13-J7P3.json",
+        "S01/S01E13-J7P4.json",
+        "S01/S01E13-J7P5.json",
+        "S01/S01E13-J7P6.json",
+
+        "S01/S01E14-J1.json",
+        "S01/S01E14-J2.json",
+
         "S01/S01E16-J1.json",
         "S01/S01E16-J1.5.json",
         "S01/S01E16-J2.json",
@@ -9,6 +25,176 @@
         "S01/S01E16-J4.json",
         "S01/S01E16-J5.json",
         "S01/S01E16-J6.json",
-        "S01/S01E16-J7.json"
+        "S01/S01E16-J7.json",
+
+        "S01/S01E17-J0.json",
+        "S01/S01E17-J1.json",
+        "S01/S01E17-J2.json",
+        "S01/S01E17-J3.json",
+        "S01/S01E17-J4.json",
+
+        "S01/S01E18-J1P1.json",
+        "S01/S01E18-J1P2.json",
+        "S01/S01E18-J1P3.json",
+        "S01/S01E18-J1P4.json",
+        "S01/S01E18-J1P5.json",
+        "S01/S01E18-J1P6.json",
+        "S01/S01E18-J2.json",
+        "S01/S01E18-J3.json",
+
+        "S01/S01E20-J0.0.json",
+        "S01/S01E20-J0.5.json",
+        "S01/S01E20-J1.json",
+
+        "S01/S01E22-J1.json",
+        "S01/S01E22-J2.json",
+        "S01/S01E22-J3.json",
+        "S01/S01E22-J4.json",
+        "S01/S01E22-J5.json",
+        "S01/S01E22-J6.json",
+
+        "S01/S01E23-J1.json",
+        "S01/S01E23-J2.json",
+        "S01/S01E23-J3.json",
+        "S01/S01E23-J4.json",
+
+        "S01/S01E24-J1.json",
+        "S01/S01E24-J2.json",
+        "S01/S01E24-J3.json",
+
+        "S01/S01E25-J1P1.json",
+        "S01/S01E25-J1P2.json",
+        "S01/S01E25-J1P3.json",
+        "S01/S01E25-J2.json",
+
+        "S01/S01E27.json",
+
+        "S01/S01E28-J1.json",
+        "S01/S01E28-J1P2.json",
+        "S01/S01E28-J2P1.json",
+        "S01/S01E28-J2P2.json",
+
+        "S01/S01E29-J1.json",
+        "S01/S01E29-J2.json",
+        "S01/S01E29-J3.json",
+        "S01/S01E29-J4.json",
+
+        "S01/S01E30-J1P1.json",
+        "S01/S01E30-J1P2.json",
+        "S01/S01E30-J1P3.json",
+        "S01/S01E30-J2.json",
+
+        "S01/S01E31-J1.json",
+        "S01/S01E31-J2.json",
+        "S01/S01E31-J4P1.json",
+        "S01/S01E31-J4P2.json",
+        "S01/S01E31-J4P3.json",
+
+        "S01/S01E32-J1P1.json",
+        "S01/S01E32-J1P2.json",
+        "S01/S01E32-J1P3.json",
+        "S01/S01E32-J1P4.json",
+
+        "S01/S01E34-J1.json",
+
+        "S01/S01E35-J1P1.json",
+        "S01/S01E35-J1P2.json",
+        "S01/S01E35-J1P3.json",
+        "S01/S01E35-J1P4.json",
+
+        "S01/S01E36-J1.json",
+
+        "S01/S01E37-J1P1.json",
+        "S01/S01E37-J1P2.json",
+        "S01/S01E37-J1P3.json",
+        "S01/S01E37-J1P4.json",
+
+        "S01/S01E38-J1.json",
+        "S01/S01E38-J2.json",
+        "S01/S01E38-J3.json",
+        "S01/S01E38-J4.json",
+        "S01/S01E38-J5.json",
+        "S01/S01E38-HBD.json",
+
+        "S01/S01E40-J1T1.json",
+        "S01/S01E40-J1T2.json",
+        "S01/S01E40-J2.json",
+
+        "S01/S01E42-J1.json",
+        "S01/S01E42-J2.json",
+        "S01/S01E42-J3.json",
+
+        "S01/S01E44-J0.0.json",
+        "S01/S01E44-J0.5.json",
+        "S01/S01E44-J1P1.json",
+        "S01/S01E44-J1P2.json",
+        "S01/S01E44-J1P3.json",
+        "S01/S01E44-J2.json",
+        "S01/S01E44-J3.json",
+        "S01/S01E44-J4.json",
+
+        "S01/S01E46-J1.json",
+        "S01/S01E46-J2.json",
+        "S01/S01E46-J3.json",
+        "S01/S01E46-J4.json",
+        "S01/S01E46-J5.json",
+        "S01/S01E46-J6.json",
+        "S01/S01E46-J7.json",
+        "S01/S01E46-J8.json",
+
+        "S01/S01E49-J1.json",
+        "S01/S01E49-J2.json",
+        "S01/S01E49-J3.json",
+        "S01/S01E49-J4.json",
+
+        "S01/S01E51-J1P1.json",
+        "S01/S01E51-J1P2.json",
+        "S01/S01E51-J1P3.json",
+        "S01/S01E51-J1P4.json",
+        "S01/S01E51-J1P5.json",
+        "S01/S01E51-J1P6.json",
+        "S01/S01E51-J2P1.json",
+        "S01/S01E51-J2P2.json",
+        "S01/S01E51-J2P3.json",
+
+        "S01/S01E51-J3.json",
+        "S01/S01E51-J4.json",
+
+        "S01/S01E53-J1.json",
+        "S01/S01E53-J2.json",
+        "S01/S01E53-J3.json",
+
+        "S01/S01E56-J1.json",
+        "S01/S01E56-J2.json",
+        "S01/S01E56-J3.json",
+        "S01/S01E56-J4.json",
+
+        "S01/S01E58-J1.json",
+        "S01/S01E58-J2.json",
+        "S01/S01E58-J3.json",
+        "S01/S01E58-J4.json",
+        "S01/S01E58-J5.json",
+        "S01/S01E58-J6.json",
+        
+        "S01/S01E60-J1.json",
+        "S01/S01E60-J2.json",
+        "S01/S01E60-J3.json",
+        "S01/S01E60-J4.json",
+
+        "S01/S01E63-J1.json",
+        "S01/S01E63-J2.json",
+        "S01/S01E63-J3.json",
+
+        "S01/S01E65-J1P1.json",
+        "S01/S01E65-J1P2.json",
+        "S01/S01E65-J1P3.json",
+        "S01/S01E65-J2.json",
+        "S01/S01E65-J3P1.json",
+        "S01/S01E65-J3P2.json",
+        "S01/S01E65-J4.json",
+        "S01/S01E65-J5P1.json",
+        "S01/S01E65-J5P2.json",
+        "S01/S01E65-J5P3.json"
+
     ]
 }

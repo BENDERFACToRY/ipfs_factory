@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E51 - Jam 2 Part 3",
+    "recorded_date": "unknown",
+    "data_folder": "S01E51-J2P3",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E51-J2P3_stereo.flac",
+        "vorbis": "ogg/S01E51-J2P3_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

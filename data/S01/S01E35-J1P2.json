@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E35 - Jam 1 Part 2",
+    "recorded_date": "unknown",
+    "data_folder": "S01E35-J1P2",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E35-J1P2_stereo.flac",
+        "vorbis": "ogg/S01E35-J1P2_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E40 - Jam 1 Take 2",
+    "recorded_date": "unknown",
+    "data_folder": "S01E40-J1T2",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E40-J1T2_stereo.flac",
+        "vorbis": "ogg/S01E40-J1T2_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

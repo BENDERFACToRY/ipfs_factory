@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E13 - Jam 7 Part 2",
+    "recorded_date": "unknown",
+    "data_folder": "S01E13-J7P2",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E13-J7P02_stereo.flac",
+        "vorbis": "ogg/S01E13-J7P02_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

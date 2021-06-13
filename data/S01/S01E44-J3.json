@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E44 - Jam 3",
+    "recorded_date": "unknown",
+    "data_folder": "S01E44-J3",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E44-J3_stereo.flac",
+        "vorbis": "ogg/S01E44-J3_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "$schema": "../schema/recording.json",
+    "title": "S01E65 - Jam 1 Part 3",
+    "recorded_date": "unknown",
+    "data_folder": "S01E65-J1P3",
+    "stereo_mix": {
+        "id": 17,
+        "name": "Stereo mix",
+        "flac": "S01E65-J1P3_stereo.flac",
+        "vorbis": "ogg/S01E65-J1P3_stereo.ogg"
+    },
+    "tags": [
+        "tbd"
+    ],
+    "tracks": [
+    ]
+}

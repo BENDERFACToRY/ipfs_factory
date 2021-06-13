@@ -3,7 +3,7 @@
 
 <head>
     {{ gitlab_review|safe }}
-    <title>BenderFactory Stems for </title>
+    <title>BenderFactory Stems for {{recording.title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -185,7 +185,7 @@
                     <a href="{{recording.stereo_mix.vorbis|safe}}" download>Ogg</a> {{recording.stereo_mix.ogg_size_str()}}
                 </td>
                 <td>
-                    This is the stereo mix, and is basicaly what you would have heard during the
+                    This is the stereo mix, and is basically what you would have heard during the
                     {% if recording.youtube_url.is_some() %}
                         <a href="{{recording.youtube_url.as_ref().unwrap()|safe}}">live stream</a>
                     {% else %}

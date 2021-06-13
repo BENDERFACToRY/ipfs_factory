@@ -99,22 +99,28 @@ pub fn patch_root_object<P: AsRef<Path>>(root_hash: &cid::Cid, root_dir: P) -> a
     for local_link in root_dir.read_dir()? {
         let local_link = local_link?;
         let local_link_path = local_link.path();
+
+        // find the corresponding link in the IPFS structure (if it exists)
+        let maybe_link = root_obj.links.iter().find(|l| local_link.file_name() == AsRef::<OsStr>::as_ref(&l.name));
         if let Some(ext) = local_link_path.extension() {
-            if ext == "ogg" || ext == "flac" {
-                // we don't patch ogg/flac audio files
+            if (ext == "ogg" || ext == "flac") && maybe_link.is_some() {
+                // we don't patch ogg/flac audio files if they already exist in IPFS
                 continue
             };
         }
-        // find the corresponding link in the IPFS structure (if it exists)
-        let maybe_link = root_obj.links.iter().find(|l| local_link.file_name() == AsRef::<OsStr>::as_ref(&l.name));
 
         if local_link_path.is_file() {
-            let new_cid = ipfs_add(&local_link_path, false)?;
             if let Some(link) = maybe_link {
+                let new_cid = ipfs_add(&local_link_path, false)?;
                 if new_cid != link.hash {
                     println!("Patching {} with {} ({})", link.name, local_link_path.display(), new_cid);
                     root_obj = root_obj.add_link(&link.name, &new_cid)?;
                 }
+            } else {
+                let new_cid = ipfs_add(&local_link_path, true)?;
+                let new_link_name = local_link.file_name();
+                root_obj = root_obj.add_link(&new_link_name.to_string_lossy(), &new_cid)?;
+                println!("Added new link to {:?} ({})", new_link_name, new_cid);
             }
         } else if local_link_path.is_dir() {
             if let Some(link) = maybe_link {
@@ -132,6 +138,14 @@ pub fn patch_root_object<P: AsRef<Path>>(root_hash: &cid::Cid, root_dir: P) -> a
             
         }
 
+    }
+
+    // now look for links the the IPFS object that don't exist locally and print a warning about them
+    for link in &root_obj.links {
+        let maybe_local = root_dir.join(&link.name);
+        if !maybe_local.exists() {
+            println!("Warning: {} exists in IPFS, but not on the filesystem {:?}", link.name, maybe_local);
+        }
     }
 
   

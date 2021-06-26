@@ -1,4 +1,4 @@
-use std::path::{Path, PathBuf};
+use std::{borrow::Cow, path::{Path, PathBuf}};
 
 use serde::{Deserialize, Serialize};
 
@@ -172,15 +172,29 @@ impl Recording {
     }
 }
 
+/// This structure is loaded directly from the JSON files in the data directdory
 #[derive(Deserialize, Debug)]
 pub(crate) struct TrackInner {
     pub id: u8,
     pub name: String,
     pub flac: String,
-    pub vorbis: String,
+    vorbis: String,
     pub patch_notes: Option<String>,
 }
 
+impl TrackInner {
+    pub fn vorbis(&self) -> Cow<Path> {
+        if self.vorbis.contains("{FLACBASE}") {
+            let t = Path::new(&self.flac);
+            let base = t.file_stem().expect("No filestem on flac").to_string_lossy();
+            Cow::Owned(PathBuf::from(self.vorbis.replace("{FLACBASE}", &base)))
+        } else {
+            Cow::Borrowed(Path::new(&self.vorbis))
+        }
+    }
+}
+
+/// This structure is used to save the metadata.json files
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Track {
     pub id: u8,
@@ -215,12 +229,17 @@ impl Track {
             .map(|p| MediaInfo::new(p.join(&inner.flac)).unwrap())
             .unwrap_or_else(|| cache.map(|c| c.media_info.clone()).unwrap());
 
+        let flac_basename = {
+            let t = Path::new(&inner.flac);
+            t.file_stem().expect("no flac file stem").to_string_lossy().to_string()
+        };
+
         Ok(Track {
             media_info,
             id: inner.id,
             name: inner.name,
             flac: inner.flac,
-            vorbis: inner.vorbis,
+            vorbis: inner.vorbis.replace("{FLACBASE}", &flac_basename),
             patch_notes: inner.patch_notes,
             ondisk_root: ondisk_root.map(Path::to_owned),
             flac_bytes,

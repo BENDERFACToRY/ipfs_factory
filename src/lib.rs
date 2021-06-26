@@ -319,7 +319,7 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
         // each recording specifies their own local data folder relative to the global data_root
         let data_dir = data_dir.join(recording.data_folder);
 
-        let stereo_mix = data_dir.join(&recording.stereo_mix.vorbis);
+        let stereo_mix = data_dir.join(&recording.stereo_mix.vorbis());
         if !stereo_mix.exists() {
             println!(
                 " {}: Stereo mix file doesn't exist {}",
@@ -366,7 +366,7 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
                 println!("      {} Flac orginal", "OK".green());
             }
 
-            let ogg_path = data_dir.join(&track.vorbis);
+            let ogg_path = data_dir.join(&track.vorbis());
             if !ogg_path.exists() {
                 println!(
                     "      {}: OGG Vorbis file for `{}` track {} does not exist ({})",

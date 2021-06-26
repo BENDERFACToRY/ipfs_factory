@@ -10,8 +10,57 @@
         "vorbis": "ogg/S01E29-J4_stereo.ogg"
     },
     "tags": [
-        "tbd"
+        "tbd",
+        "melodic"
     ],
     "tracks": [
+        {
+            "id": 5,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 4-05-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 4-05-200415_1413.ogg"
+        },
+        {
+            "id": 6,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 5-06-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 5-06-200415_1413.ogg"
+        },
+        {
+            "id": 7,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 6-07-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 6-07-200415_1413.ogg"
+        },
+        {
+            "id": 8,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 7-08-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 7-08-200415_1413.ogg"
+        },
+        {
+            "id": 13,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 8-13-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 8-13-200415_1413.ogg"
+        },
+        {
+            "id": 14,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 9-14-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 9-14-200415_1413.ogg"
+        },
+        {
+            "id": 15,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 10-15-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 10-15-200415_1413.ogg"
+        },
+        {
+            "id": 16,
+            "name": "??",
+            "flac": "Colin Benders - Day 29 Jam 4 11-16-200415_1413.flac",
+            "vorbis": "ogg/Colin Benders - Day 29 Jam 4 11-16-200415_1413.ogg"
+        }
     ]
 }

@@ -13,5 +13,53 @@
         "tbd"
     ],
     "tracks": [
+        {
+            "id": 1,
+            "name": "Drums/kick",
+            "flac": "Day 18 J01-M03 Kick.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 2,
+            "name": "Percussion 1",
+            "flac": "Day 18 J01-M03 Percussion 1.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 3,
+            "name": "Percussion 2",
+            "flac": "Day 18 J01-M03 Percussion 2.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 4,
+            "name": "Bass",
+            "flac": "Day 18 J01-M03 Bass.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 5,
+            "name": "Synth 1",
+            "flac": "Day 18 J01-M03 Synth 1.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 6,
+            "name": "Reverb L",
+            "flac": "Day 18 J01-M03 Reverb L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 7,
+            "name": "Reverb R",
+            "flac": "Day 18 J01-M03 Reverb R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 8,
+            "name": "FX Send",
+            "flac": "Day 18 J01-M03 FX Send.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        }
     ]
 }

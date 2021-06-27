@@ -221,7 +221,7 @@ impl Track {
             .unwrap_or_else(|| cache.map(|c| c.flac_bytes).unwrap_or_else(|| panic!("Can't construct track for {:?}", inner)));
 
         let ogg_bytes = ondisk_root
-            .and_then(|p| std::fs::metadata(p.join(&inner.vorbis)).ok())
+            .and_then(|p| std::fs::metadata(p.join(&inner.vorbis())).ok())
             .map(|md| md.len())
             .unwrap_or_else(|| cache.map(|c| c.ogg_bytes).unwrap_or(0));
 

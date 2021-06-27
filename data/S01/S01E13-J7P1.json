@@ -1,7 +1,7 @@
 {
     "$schema": "../schema/recording.json",
     "title": "S01E13 - Jam 7 Part 1",
-    "recorded_date": "unknown",
+    "recorded_date": "2020/03/30",
     "data_folder": "S01E13-J7P1",
     "stereo_mix": {
         "id": 17,
@@ -13,5 +13,65 @@
         "tbd"
     ],
     "tracks": [
+        {
+            "id": 2,
+            "name": "Drums/kick",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-02-kick-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 3,
+            "name": "Drums/hats",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-03-hats-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 4,
+            "name": "Claps",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-04-claps-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 5,
+            "name": "Bass",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-05-bass-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 8,
+            "name": "ER301",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-08-ER301-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 9,
+            "name": "Reverb left",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-09-reverb_left-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 10,
+            "name": "Reverb right",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-10-reverb_right-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 11,
+            "name": "Delay left",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-11-delay_left-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 12,
+            "name": "Delay right",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-12-delay_right-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        },
+        {
+            "id": 13,
+            "name": "Highpass",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_01-13-highpass-200330_1627.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg"
+        }
     ]
 }

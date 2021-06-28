@@ -7,7 +7,8 @@
         "id": 17,
         "name": "Stereo mix",
         "flac": "S01E42-J3_stereo.flac",
-        "vorbis": "ogg/S01E42-J3_stereo.ogg"
+        "vorbis": "ogg/S01E42-J3_stereo.ogg",
+        "mp3": "mp3/{FLACBASE}.mp3"
     },
     "tags": [
         "tbd"

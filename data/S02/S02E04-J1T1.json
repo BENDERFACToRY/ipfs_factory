@@ -9,7 +9,8 @@
         "id": 17,
         "name": "Stereo mix",
         "flac": "Colin Benders - S02E04 - Jam 1 - Take 1 - 17-201019_2114.flac",
-        "vorbis": "ogg/Colin Benders - S02E04 - Jam 1 - Take 1 - 17-201019_2114.ogg"
+        "vorbis": "ogg/Colin Benders - S02E04 - Jam 1 - Take 1 - 17-201019_2114.ogg",
+        "mp3": "mp3/{FLACBASE}.mp3"
     },
     "bpm": "108",
     "tags": [

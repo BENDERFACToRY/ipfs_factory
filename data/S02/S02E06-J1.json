@@ -10,7 +10,8 @@
         "id": 17,
         "name": "Stereo mix",
         "flac": "Colin Benders - S02E06 - Jam 1 - 17-201023_1912.flac",
-        "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 17-201023_1912.ogg"
+        "vorbis": "ogg/Colin Benders - S02E06 - Jam 1 - 17-201023_1912.ogg",
+        "mp3": "mp3/{FLACBASE}.mp3"
     },
     "bpm": "131",
     "tags": [

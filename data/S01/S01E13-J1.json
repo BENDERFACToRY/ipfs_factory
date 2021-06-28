@@ -7,7 +7,8 @@
         "id": 17,
         "name": "Stereo mix",
         "flac": "S01E13-J1_stereo.flac",
-        "vorbis": "ogg/S01E13-J1_stereo.ogg"
+        "vorbis": "ogg/S01E13-J1_stereo.ogg",
+        "mp3": "mp3/{FLACBASE}.mp3"
     },
     "tags": [
         "tbd"
@@ -17,7 +18,8 @@
             "id": 2,
             "name": "Drums/Kick",
             "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_1-Part_01-02-kick-200330_1454.flac",
-            "vorbis": "ogg/Colin_Benders-Lockdown_Sesssions-Day_13-Jam_1-Part_01-02-kick-200330_1454.ogg"
+            "vorbis": "ogg/Colin_Benders-Lockdown_Sesssions-Day_13-Jam_1-Part_01-02-kick-200330_1454.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
         },
         {
             "id": 3,

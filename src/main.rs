@@ -121,7 +121,9 @@ fn main() -> Result<(), anyhow::Error> {
     let season: Season = if let Some(data_dir_path) = matches.value_of("data-dir") {
         Season::load(season_json_path, Some(Path::new(data_dir_path)), None)?
     } else {
-        let md_file = matches.value_of("metadata").expect("Missing --data or --metadata argment");
+        let md_file = matches
+            .value_of("metadata")
+            .expect("Missing --data or --metadata argment");
         let f = File::open(md_file)?;
         let cached_season: Season = serde_json::from_reader(f)?;
 

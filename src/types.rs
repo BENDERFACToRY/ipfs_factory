@@ -1,4 +1,7 @@
-use std::{borrow::Cow, path::{Path, PathBuf}};
+use std::{
+    borrow::Cow,
+    path::{Path, PathBuf},
+};
 
 use serde::{Deserialize, Serialize};
 
@@ -17,12 +20,13 @@ pub(crate) struct SeasonInner {
 pub struct Season {
     pub title: String,
     pub recordings: Vec<Recording>,
-
     //pub(crate) ondisk_root: PathBuf,
 }
 
 impl Season {
-    pub fn load<P: AsRef<Path>>(json: P, ondisk_root: Option<&Path>, cache: Option<&Season>) -> Result<Self, anyhow::Error> {
+    pub fn load<P: AsRef<Path>>(
+        json: P, ondisk_root: Option<&Path>, cache: Option<&Season>,
+    ) -> Result<Self, anyhow::Error> {
         let json = json.as_ref();
         let json_root = json.parent().unwrap();
 
@@ -33,7 +37,7 @@ impl Season {
 
         if let Some(cache) = cache {
             for (rec_path, cache) in inner.recordings.iter().zip(cache.recordings.iter()) {
-                let recording = Recording::load(&json_root.join(rec_path), ondisk_root, Some(cache))?;        
+                let recording = Recording::load(&json_root.join(rec_path), ondisk_root, Some(cache))?;
                 recordings.push(recording);
             }
         } else {
@@ -41,9 +45,7 @@ impl Season {
                 let recording = Recording::load(&json_root.join(rec_path), ondisk_root, None)?;
                 recordings.push(recording);
             }
-    
         }
-
 
         Ok(Season {
             title: inner.title,
@@ -80,12 +82,13 @@ pub struct Recording {
     pub tags: Vec<String>,
     pub bpm: Option<String>,
     pub youtube_url: Option<String>,
-
     //ondisk_root: PathBuf,
 }
 impl Recording {
     /// Load info about a recording, given a path to its json file
-    pub fn load<P: AsRef<Path>>(json: P, ondisk_root: Option<&Path>, cache: Option<&Recording>) -> Result<Self, anyhow::Error> {
+    pub fn load<P: AsRef<Path>>(
+        json: P, ondisk_root: Option<&Path>, cache: Option<&Recording>,
+    ) -> Result<Self, anyhow::Error> {
         let json = json.as_ref();
         let _json_root = json.parent().unwrap();
 
@@ -97,19 +100,19 @@ impl Recording {
         let tracks = if let Some(cache) = cache {
             // gotta find the corresponding track from the cache
             inner
-            .tracks
-            .into_iter()
-            .map(|tr| {
-                let tr_id = tr.id;
-                Track::from_inner(tr, ondisk_root.as_deref(), cache.tracks.iter().find(|t| t.id == tr_id)).unwrap()
-            })
-            .collect()
+                .tracks
+                .into_iter()
+                .map(|tr| {
+                    let tr_id = tr.id;
+                    Track::from_inner(tr, ondisk_root.as_deref(), cache.tracks.iter().find(|t| t.id == tr_id)).unwrap()
+                })
+                .collect()
         } else {
             inner
-            .tracks
-            .into_iter()
-            .map(|tr| Track::from_inner(tr, ondisk_root.as_deref(), None).unwrap())
-            .collect()
+                .tracks
+                .into_iter()
+                .map(|tr| Track::from_inner(tr, ondisk_root.as_deref(), None).unwrap())
+                .collect()
         };
         // let tracks = inner
         //     .tracks
@@ -117,7 +120,11 @@ impl Recording {
         //     .map(|tr| Track::from_inner(tr, &ondisk_root).unwrap())
         //     .collect();
 
-        let stereo_mix = Track::from_inner(inner.stereo_mix, ondisk_root.as_deref(), cache.as_ref().map(|c| &c.stereo_mix))?;
+        let stereo_mix = Track::from_inner(
+            inner.stereo_mix,
+            ondisk_root.as_deref(),
+            cache.as_ref().map(|c| &c.stereo_mix),
+        )?;
 
         Ok(Recording {
             title: inner.title,
@@ -201,9 +208,7 @@ impl TrackInner {
                 let base = t.file_stem().expect("No filestem on flac").to_string_lossy();
                 Some(Cow::Owned(PathBuf::from(mp3.replace("{FLACBASE}", &base))))
             }
-            Some(mp3) => {
-                Some(Cow::Borrowed(Path::new(mp3.as_str())))
-            }
+            Some(mp3) => Some(Cow::Borrowed(Path::new(mp3.as_str()))),
         }
     }
 }
@@ -230,11 +235,17 @@ pub struct Track {
 }
 
 impl Track {
-    pub(crate) fn from_inner(inner: TrackInner, ondisk_root: Option<&Path>, cache: Option<&Track>) -> Result<Self, anyhow::Error> {
+    pub(crate) fn from_inner(
+        inner: TrackInner, ondisk_root: Option<&Path>, cache: Option<&Track>,
+    ) -> Result<Self, anyhow::Error> {
         let flac_bytes = ondisk_root
             .and_then(|p| std::fs::metadata(p.join(&inner.flac)).ok())
             .map(|md| md.len())
-            .unwrap_or_else(|| cache.map(|c| c.flac_bytes).unwrap_or_else(|| panic!("Can't construct track for {:?}", inner)));
+            .unwrap_or_else(|| {
+                cache
+                    .map(|c| c.flac_bytes)
+                    .unwrap_or_else(|| panic!("Can't construct track for {:?}", inner))
+            });
 
         let ogg_bytes = ondisk_root
             .and_then(|p| std::fs::metadata(p.join(&inner.vorbis())).ok())
@@ -278,7 +289,9 @@ impl Track {
     }
 
     pub fn mp3_ondisk(&self) -> Option<PathBuf> {
-        self.ondisk_root.as_ref().and_then(|p| self.mp3.as_ref().map(|mp3| p.join(&mp3)))
+        self.ondisk_root
+            .as_ref()
+            .and_then(|p| self.mp3.as_ref().map(|mp3| p.join(&mp3)))
     }
 
     pub fn flac_size_str(&self) -> String {

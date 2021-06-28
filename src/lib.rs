@@ -226,16 +226,17 @@ pub struct RecordingIndexTemplate<'a> {
 // handlebars_helper!(filename: |v: u32| f.filename());
 
 fn get_gitlab_review_string() -> String {
-
     if let Ok(mr) = std::env::var("CI_MERGE_REQUEST_IID") {
-        format!(r#"<script defer data-project-id="22680986" data-project-path="eminence/benderfactory" data-merge-request-id="{}" data-mr-url="https://gitlab.com" id="review-app-toolbar-script" src="https://gitlab.com/assets/webpack/visual_review_toolbar.js"></script>"#, mr)
+        format!(
+            r#"<script defer data-project-id="22680986" data-project-path="eminence/benderfactory" data-merge-request-id="{}" data-mr-url="https://gitlab.com" id="review-app-toolbar-script" src="https://gitlab.com/assets/webpack/visual_review_toolbar.js"></script>"#,
+            mr
+        )
     } else {
         "".to_string()
     }
 }
 
 fn copy_all_files<P: AsRef<Path>, T: AsRef<Path>>(from_dir: P, to_dir: T) -> Result<(), anyhow::Error> {
-
     let from_dir = from_dir.as_ref();
     let to_dir = to_dir.as_ref();
     for file in from_dir.read_dir()? {
@@ -253,7 +254,6 @@ fn copy_all_files<P: AsRef<Path>, T: AsRef<Path>>(from_dir: P, to_dir: T) -> Res
     }
 
     Ok(())
-
 }
 
 pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), anyhow::Error> {
@@ -269,7 +269,11 @@ pub fn write_season_index(season: &Season, output_root: &Path) -> Result<(), any
     let mut tag_list: Vec<_> = tag_set.into_iter().collect();
     tag_list.sort();
 
-    let context = SeasonIndexTemplate { season, tag_list, gitlab_review: get_gitlab_review_string() };
+    let context = SeasonIndexTemplate {
+        season,
+        tag_list,
+        gitlab_review: get_gitlab_review_string(),
+    };
 
     std::fs::create_dir_all(output_root)?;
     let f = output_root.join("index.html");
@@ -291,7 +295,11 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path) -> Result<
     writeln!(m3u, "#EXTM3U")?;
 
     for recording in &season.recordings {
-        let context = RecordingIndexTemplate { season, recording, gitlab_review: get_gitlab_review_string() };
+        let context = RecordingIndexTemplate {
+            season,
+            recording,
+            gitlab_review: get_gitlab_review_string(),
+        };
 
         std::fs::create_dir_all(output_root.join(&recording.data_folder))?;
         let f = output_root.join(&recording.data_folder).join("index.html");
@@ -306,8 +314,18 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path) -> Result<
         println!("Wrote recording index to {}", f.display());
 
         let duration: f32 = recording.stereo_mix.media_info.duration.parse()?;
-        writeln!(m3u, "#EXTINF:{},Colin Bendres - {}", duration.round() as u32, recording.title)?;
-        writeln!(m3u, "https://ipfs.io/ipns/mm.em32.net/{}/{}", recording.data_folder, recording.stereo_mix.vorbis.replace(' ', "%20"))?;
+        writeln!(
+            m3u,
+            "#EXTINF:{},Colin Bendres - {}",
+            duration.round() as u32,
+            recording.title
+        )?;
+        writeln!(
+            m3u,
+            "https://ipfs.io/ipns/mm.em32.net/{}/{}",
+            recording.data_folder,
+            recording.stereo_mix.vorbis.replace(' ', "%20")
+        )?;
     }
 
     Ok(())
@@ -375,7 +393,6 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
                 println!("  {} torrent file", "OK".green());
             }
         }
-        
 
         println!("  Tracks for {}:", recording.title.cyan());
 

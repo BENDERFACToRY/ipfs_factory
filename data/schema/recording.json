@@ -89,6 +89,11 @@
                     "description": "(optional) Local path to the lossy ogg vorbis version, relative to $DATA_DIR",
                     "pattern": "^[/A-Za-z0-9 -_{}]+\\.ogg$"
                 },
+                "mp3": {
+                    "type": "string",
+                    "description": "(optional) Local path to the lossy mp3 version, relative to $DATA_DIR",
+                    "pattern": "^[/A-Za-z0-9 -_{}]+\\.mp3$"
+                },
                 "name": {
                     "type": "string",
                     "description": "(optional) Name of the track, something like 'kickdrum 1"

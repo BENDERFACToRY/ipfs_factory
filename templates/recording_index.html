@@ -177,12 +177,20 @@
                     Stereo mix
                 </td>
                 <td>
-                    <audio controls src="{{recording.stereo_mix.vorbis|safe}}" preload="metadata"></audio>
+                    <audio controls preload="metadata">
+                        <source src="{{recording.stereo_mix.vorbis|safe}}" type="audio/ogg" />
+                        {% if recording.stereo_mix.mp3.is_some() %}
+                        <source src="{{recording.stereo_mix.mp3.as_ref().unwrap()|safe}}" type="audio/mp3" />
+                        {% endif %}
+                    </audio>
                 </td>
                 <td>
                     <a href="{{recording.stereo_mix.flac|safe}}" download>Flac</a> {{recording.stereo_mix.flac_size_str()}}
                     |
                     <a href="{{recording.stereo_mix.vorbis|safe}}" download>Ogg</a> {{recording.stereo_mix.ogg_size_str()}}
+                    {% if recording.stereo_mix.mp3.is_some() %}
+                        | <a href="{{recording.stereo_mix.mp3.as_ref().unwrap()|safe}}" download>MP3</a> {{recording.stereo_mix.mp3_size_str()}}
+                    {% endif %}
                 </td>
                 <td>
                     This is the stereo mix, and is basically what you would have heard during the
@@ -201,12 +209,20 @@
                     track {{track.id}}: <br /> {{track.name}}
                 </td>
                 <td>
-                    <audio controls src="{{track.vorbis|safe}}" preload="none"></audio>
+                    <audio controls preload="none">
+                        <source src="{{track.vorbis|safe}}" type="audio/ogg" />
+                        {% if track.mp3.is_some() %}
+                        <source src="{{track.mp3.as_ref().unwrap()|safe}}" type="audio/mp3" />
+                        {% endif %}
+                    </audio>
                 </td>
                 <td>
                     <a href="{{track.flac|safe}}" download>Flac</a> {{track.flac_size_str()}}
                     |
                     <a href="{{track.vorbis|safe}}" download>Ogg</a> {{track.ogg_size_str()}}
+                    {% if track.mp3.is_some() %}
+                    | <a href="{{track.mp3.as_ref().unwrap()|safe}}" download>Ogg</a> {{track.mp3_size_str()}}
+                    {% endif %}
                 </td>
                 <td>
                     {{track.patch_notes()}}

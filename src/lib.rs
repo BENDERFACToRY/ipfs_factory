@@ -50,15 +50,26 @@ pub fn convert_all(season: &Season) -> Result<(), anyhow::Error> {
         let p = rec.stereo_mix.ogg_ondisk();
         let p = p.as_ref().unwrap();
         if !p.exists() {
-            convert_to_vorbis(&rec.stereo_mix.flac_ondisk().as_ref().unwrap(), &p)?;    
+            convert_to_fileformat(&rec.stereo_mix.flac_ondisk().as_ref().unwrap(), &p)?;
         }
 
+        if let Some(mp3) = rec.stereo_mix.mp3_ondisk() {
+            if !mp3.exists() {
+                convert_to_fileformat(&rec.stereo_mix.flac_ondisk().as_ref().unwrap(), &mp3)?;
+            }
+        }
 
         for track in &rec.tracks {
             let p = track.ogg_ondisk();
             let p = p.as_ref().unwrap();
             if !p.exists() {
-                convert_to_vorbis(&track.flac_ondisk().as_ref().unwrap(), &p)?;
+                convert_to_fileformat(&track.flac_ondisk().as_ref().unwrap(), &p)?;
+            }
+
+            if let Some(mp3) = track.mp3_ondisk() {
+                if !mp3.exists() {
+                    convert_to_fileformat(&track.flac_ondisk().as_ref().unwrap(), &mp3)?;
+                }
             }
         }
     }
@@ -66,7 +77,14 @@ pub fn convert_all(season: &Season) -> Result<(), anyhow::Error> {
     Ok(())
 }
 
-pub fn convert_to_vorbis(input: &Path, output: &Path) -> Result<(), anyhow::Error> {
+/// Converts input to output format (based on the extension of output path)
+pub fn convert_to_fileformat(input: &Path, output: &Path) -> Result<(), anyhow::Error> {
+    // create the output directory if needed
+    let parent = output.parent().expect("no parent");
+    if !parent.exists() {
+        std::fs::create_dir_all(&parent)?;
+    }
+
     let mut ffmpeg = Command::new("ffmpeg")
         .arg("-i")
         .arg(input)
@@ -102,6 +120,8 @@ impl AudioFile {
 //     #[serde(rename = "Duration")]
 //     pub duration: String
 // }
+
+/// MediaInfo for the flac track
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct MediaInfo {
     #[serde(rename = "@type")]
@@ -328,7 +348,18 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
             );
             errors += 1;
         } else {
-            println!("  {} Stereo mix", "OK".green());
+            // println!("  {} Stereo mix", "OK".green());
+        }
+        if let Some(mp3) = recording.stereo_mix.mp3() {
+            let mp3 = data_dir.join(mp3);
+            if !mp3.exists() {
+                println!(
+                    " {}: Stereo mix mp3 file doesn't exist {}",
+                    "ERROR".red(),
+                    format!("{}", mp3.display()).yellow()
+                );
+                errors += 1;
+            }
         }
 
         if let Some(torrent) = &recording.torrent {
@@ -337,7 +368,7 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
                 println!(
                     " {}: torrent file doesn't exist {}",
                     "ERROR".red(),
-                    format!("{}", stereo_mix.display()).yellow()
+                    format!("{}", torrent_file.display()).yellow()
                 );
                 errors += 1;
             } else {
@@ -377,7 +408,21 @@ pub fn validate_and_print(json_path: &Path, data_dir: &Path) -> anyhow::Result<u
                 );
                 errors += 1;
             } else {
-                println!("      {} Ogg vorbis", "OK".green());
+                // println!("      {} Ogg vorbis", "OK".green());
+            }
+
+            if let Some(mp3) = track.mp3() {
+                let mp3 = data_dir.join(mp3);
+                if !mp3.exists() {
+                    println!(
+                        "      {}: MP3 file for `{}` track {} does not exist ({})",
+                        "ERROR".red(),
+                        recording.title,
+                        track.id,
+                        mp3.display()
+                    );
+                    errors += 1;
+                }
             }
         }
     }

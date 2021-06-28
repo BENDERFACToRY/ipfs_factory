@@ -179,6 +179,7 @@ pub(crate) struct TrackInner {
     pub name: String,
     pub flac: String,
     vorbis: String,
+    mp3: Option<String>,
     pub patch_notes: Option<String>,
 }
 
@@ -192,6 +193,19 @@ impl TrackInner {
             Cow::Borrowed(Path::new(&self.vorbis))
         }
     }
+    pub fn mp3<'a>(&'a self) -> Option<Cow<'a, Path>> {
+        match &self.mp3 {
+            None => None,
+            Some(mp3) if mp3.contains("{FLACBASE}") => {
+                let t = Path::new(&self.flac);
+                let base = t.file_stem().expect("No filestem on flac").to_string_lossy();
+                Some(Cow::Owned(PathBuf::from(mp3.replace("{FLACBASE}", &base))))
+            }
+            Some(mp3) => {
+                Some(Cow::Borrowed(Path::new(mp3.as_str())))
+            }
+        }
+    }
 }
 
 /// This structure is used to save the metadata.json files
@@ -201,6 +215,7 @@ pub struct Track {
     pub name: String,
     pub flac: String,
     pub vorbis: String,
+    pub mp3: Option<String>,
     pub patch_notes: Option<String>,
 
     /// Folder on the current machine can this track be found
@@ -211,6 +226,7 @@ pub struct Track {
 
     pub flac_bytes: u64,
     pub ogg_bytes: u64,
+    pub mp3_bytes: u64,
 }
 
 impl Track {
@@ -222,6 +238,11 @@ impl Track {
 
         let ogg_bytes = ondisk_root
             .and_then(|p| std::fs::metadata(p.join(&inner.vorbis())).ok())
+            .map(|md| md.len())
+            .unwrap_or_else(|| cache.map(|c| c.ogg_bytes).unwrap_or(0));
+
+        let mp3_bytes = ondisk_root
+            .and_then(|p| inner.mp3().and_then(|mp3| std::fs::metadata(p.join(mp3)).ok()))
             .map(|md| md.len())
             .unwrap_or_else(|| cache.map(|c| c.ogg_bytes).unwrap_or(0));
 
@@ -240,10 +261,12 @@ impl Track {
             name: inner.name,
             flac: inner.flac,
             vorbis: inner.vorbis.replace("{FLACBASE}", &flac_basename),
+            mp3: inner.mp3.map(|mp3| mp3.replace("{FLACBASE}", &flac_basename)),
             patch_notes: inner.patch_notes,
             ondisk_root: ondisk_root.map(Path::to_owned),
             flac_bytes,
             ogg_bytes,
+            mp3_bytes,
         })
     }
 
@@ -252,6 +275,10 @@ impl Track {
     }
     pub fn ogg_ondisk(&self) -> Option<PathBuf> {
         self.ondisk_root.as_ref().map(|p| p.join(&self.vorbis))
+    }
+
+    pub fn mp3_ondisk(&self) -> Option<PathBuf> {
+        self.ondisk_root.as_ref().and_then(|p| self.mp3.as_ref().map(|mp3| p.join(&mp3)))
     }
 
     pub fn flac_size_str(&self) -> String {
@@ -268,6 +295,14 @@ impl Track {
 
     pub fn ogg_size_bytes(&self) -> u64 {
         self.ogg_bytes
+    }
+
+    pub fn mp3_size_str(&self) -> String {
+        format!("{}MB", self.mp3_bytes / 1024 / 1024)
+    }
+
+    pub fn mp3_size_bytes(&self) -> u64 {
+        self.mp3_bytes
     }
 
     pub fn patch_notes(&self) -> &str {

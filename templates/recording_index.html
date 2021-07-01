@@ -221,7 +221,7 @@
                     |
                     <a href="{{track.vorbis|safe}}" download>Ogg</a> {{track.ogg_size_str()}}
                     {% if track.mp3.is_some() %}
-                    | <a href="{{track.mp3.as_ref().unwrap()|safe}}" download>Ogg</a> {{track.mp3_size_str()}}
+                    | <a href="{{track.mp3.as_ref().unwrap()|safe}}" download>MP3</a> {{track.mp3_size_str()}}
                     {% endif %}
                 </td>
                 <td>

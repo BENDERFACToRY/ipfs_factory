@@ -3,6 +3,7 @@ use serde::Deserialize;
 use serde::Serialize;
 
 use std::str::FromStr;
+use std::time::Duration;
 use std::{convert::TryFrom, ffi::OsStr};
 use std::{path::Path, process::Command};
 
@@ -191,16 +192,20 @@ mod serde_cid {
 pub fn prime_public_gateways(root_hash: &cid::Cid) -> anyhow::Result<()> {
     let gateways = vec![
         "https://{base32}.ipfs.dweb.link",
-        "https://gateway.ipfs.io/ipfs/{v0}",
         "https://ipfs.io/ipfs/{v0}",
         "https://ipfs.overpi.com/ipfs/{v0}",
         // "https://{base32}.ipfs.ipfs.stibarc.com",
         "https://{base32}.ipfs.cf-ipfs.com",
-        "https://{base32}.ipfs.jacl.tech",
+        "https://{base32}.ipfs.astyanax.io",
+        "https://gateway.pinata.cloud/ipfs/{base32}"
     ];
 
     let b32 = cid::Cid::new_v1(root_hash.codec(), root_hash.hash().to_owned());
     let v0 = cid::Cid::new_v0(root_hash.hash().to_owned())?;
+
+    let client = reqwest::blocking::ClientBuilder::new()
+        .timeout(Duration::from_secs(120))
+        .build().unwrap();
 
     let ipfs_root = IPFSObject::get(&root_hash)?;
 
@@ -210,14 +215,15 @@ pub fn prime_public_gateways(root_hash: &cid::Cid) -> anyhow::Result<()> {
             .replace("{v0}", &format!("{}", v0));
         let base_url = reqwest::Url::parse(&gw)?;
         print!("Priming {}... ", base_url);
-        let resp = reqwest::blocking::get(base_url.clone())?;
+        let resp = client.get(base_url.clone()).send()?;
         println!(" {}", resp.status());
 
         for link in &ipfs_root.links {
             let url = reqwest::Url::parse(&format!("{}/{}", gw, link.name))?;
             print!("  {}...", url);
-            let resp = reqwest::blocking::get(url.clone())?;
+            let resp = client.get(url.clone()).send()?;
             println!(" {}", resp.status());
+            std::thread::sleep(Duration::from_millis(423));
         }
     }
 

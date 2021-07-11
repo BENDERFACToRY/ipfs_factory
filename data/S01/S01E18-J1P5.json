@@ -14,5 +14,54 @@
         "tbd"
     ],
     "tracks": [
+        {
+            "id": 1,
+            "name": "Bass",
+            "flac": "Day 18 J01-M05 Bass.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 2,
+            "name": "Kick",
+            "flac": "Day 18 J01-M05 Kick.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 3,
+            "name": "Percussion 2",
+            "flac": "Day 18 J01-M05 Percussion 2.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 4,
+            "name": "Synth 1",
+            "flac": "Day 18 J01-M05 Synth 1.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 5,
+            "name": "FX Send",
+            "flac": "Day 18 J01-M05 FX Send.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 6,
+            "name": "Reverb L",
+            "flac": "Day 18 J01-M05 Reverb L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 6,
+            "name": "Reverb R",
+            "flac": "Day 18 J01-M05 Reverb R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        }
     ]
 }

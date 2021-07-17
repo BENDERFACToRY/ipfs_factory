@@ -1,7 +1,7 @@
 {
     "$schema": "../schema/recording.json",
     "title": "S01E13 - Jam 3",
-    "recorded_date": "unknown",
+    "recorded_date": "2020/03/30",
     "data_folder": "S01E13-J3",
     "stereo_mix": {
         "id": 17,

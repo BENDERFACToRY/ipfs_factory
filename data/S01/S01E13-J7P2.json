@@ -14,5 +14,82 @@
         "tbd"
     ],
     "tracks": [
+        {
+            "id": 2,
+            "name": "Drums/Kick",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-02-kick-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 3,
+            "name": "Drums/Hats",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-03-hats-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 4,
+            "name": "Drums/Claps",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-04-claps-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 5,
+            "name": "Bass",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-05-bass-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 6,
+            "name": "Synth",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-06-synth-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 8,
+            "name": "ER301",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-08-ER301-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 9,
+            "name": "Reverb left",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-09-reverb_left-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 10,
+            "name": "Reverb right",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-10-reverb_right-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 11,
+            "name": "Delay left",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-11-delay_left-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 12,
+            "name": "Delay right",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-12-delay_right-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 13,
+            "name": "Highpass",
+            "flac": "Colin_Benders-Lockdown_Sesssions-Day_13-Jam_7-Part_02-13-highpass-200330_1631.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        }
     ]
 }

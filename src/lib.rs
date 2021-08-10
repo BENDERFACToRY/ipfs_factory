@@ -316,7 +316,7 @@ pub fn write_all_recording_index(season: &Season, output_root: &Path) -> Result<
         let duration: f32 = recording.stereo_mix.media_info.duration.parse()?;
         writeln!(
             m3u,
-            "#EXTINF:{},Colin Bendres - {}",
+            "#EXTINF:{},Colin Benders - {}",
             duration.round() as u32,
             recording.title
         )?;

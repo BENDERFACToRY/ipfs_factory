@@ -1,7 +1,7 @@
 {
     "$schema": "../schema/recording.json",
     "title": "S01E38 - Jam 1",
-    "recorded_date": "unknown",
+    "recorded_date": "2020/04/24",
     "data_folder": "S01E38-J1",
     "stereo_mix": {
         "id": 17,
@@ -14,5 +14,62 @@
         "tbd"
     ],
     "tracks": [
+        {
+            "id": 5,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 1-05-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 6,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 2-06-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 7,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 3-07-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 8,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 4-08-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 13,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 5-13-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 14,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 6-14-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 15,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 7-15-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 16,
+            "name": "???",
+            "flac": "Colin Benders - Day 38 Jam 1 8-16-200424_1425.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        }
+
     ]
 }

@@ -14,5 +14,82 @@
         "tbd"
     ],
     "tracks": [
+        {
+            "id": 1,
+            "name": "Bass",
+            "flac": "Day 58 Jam 1 BASS.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 2,
+            "name": "BD",
+            "flac": "Day 58 Jam 1 BD.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 3,
+            "name": "DLY L",
+            "flac": "Day 58 Jam 1 DLY L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 4,
+            "name": "DLY R",
+            "flac": "Day 58 Jam 1 DLY R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 5,
+            "name": "FX 3 L",
+            "flac": "Day 58 Jam 1 FX 3 L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 6,
+            "name": "FX 3 R",
+            "flac": "Day 58 Jam 1 FX 3 R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 7,
+            "name": "Perc",
+            "flac": "Day 58 Jam 1 PERC.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 8,
+            "name": "REV L",
+            "flac": "Day 58 Jam 1 REV L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 9,
+            "name": "REV R",
+            "flac": "Day 58 Jam 1 REV R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 10,
+            "name": "SYN 1",
+            "flac": "Day 58 Jam 1 SYN 1.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 11,
+            "name": "SYNTH 2",
+            "flac": "Day 58 Jam 1 SYNTH 2.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        }
     ]
 }

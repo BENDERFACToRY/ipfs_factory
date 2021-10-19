@@ -14,5 +14,89 @@
         "tbd"
     ],
     "tracks": [
+        {
+            "id": 1,
+            "name": "Bass",
+            "flac": "Colin Benders - Day 56 Jam 4 -  bass.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 2,
+            "name": "BD",
+            "flac": "Colin Benders - Day 56 Jam 4 -  BD.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 3,
+            "name": "dly L",
+            "flac": "Colin Benders - Day 56 Jam 4 -  dly L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 4,
+            "name": "dly R",
+            "flac": "Colin Benders - Day 56 Jam 4 -  dly R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 5,
+            "name": "perc 2 L",
+            "flac": "Colin Benders - Day 56 Jam 4 -  perc 2 L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 6,
+            "name": "perc 2 R",
+            "flac": "Colin Benders - Day 56 Jam 4 -  perc 2 R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 7,
+            "name": "perc",
+            "flac": "Colin Benders - Day 56 Jam 4 -  perc.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 8,
+            "name": "rev L",
+            "flac": "Colin Benders - Day 56 Jam 4 -  rev L.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 9,
+            "name": "rev R",
+            "flac": "Colin Benders - Day 56 Jam 4 -  rev R.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 10,
+            "name": "synth 1",
+            "flac": "Colin Benders - Day 56 Jam 4 -  synth 1.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 11,
+            "name": "synth 2",
+            "flac": "Colin Benders - Day 56 Jam 4 -  synth 2.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        },
+        {
+            "id": 13,
+            "name": "synth 3",
+            "flac": "Colin Benders - Day 56 Jam 4 -  synth 3.flac",
+            "vorbis": "ogg/{FLACBASE}.ogg",
+            "mp3": "mp3/{FLACBASE}.mp3"
+        }
     ]
 }
